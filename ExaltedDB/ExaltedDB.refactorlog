@@ -35,4 +35,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="CharmId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="a14bea2d-30dc-4f4d-ae08-53c8d5752994" ChangeDateTime="10/03/2019 18:52:22">
+    <Property Name="ElementName" Value="[dbo].[Charms].[ExaltedTypeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Charms]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TreeTypeId" />
+  </Operation>
 </Operations>

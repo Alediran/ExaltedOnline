@@ -28,7 +28,7 @@ namespace ExaltedOnlineAPI.Models
         /// </summary>
         /// <param name="id"></param>
         public Charms(int id) : this()
-        {
+        {            
             Id = id;
         }
 

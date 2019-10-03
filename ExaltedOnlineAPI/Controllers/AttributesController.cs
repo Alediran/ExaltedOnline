@@ -8,18 +8,20 @@ using ExaltedOnlineAPI.Models;
 namespace ExaltedOnlineAPI.Controllers
 {
 #pragma warning disable CS1591
-    [Route("api/Charms")]
+    [Route("api/Attributes")]
     [ApiController]
-    public class CharmsController : ControllerBase
+    public class AttributesController : ControllerBase
     {
         protected readonly ILogger Logger;
         protected readonly ExaltedDBContext DbContext;
 
-        public CharmsController(ILogger<CharmsController> logger, ExaltedDBContext dbContext)
+        public AttributesController(ILogger<AttributesController> logger, ExaltedDBContext dbContext)
         {
             Logger = logger;
             DbContext = dbContext;
         }
+
+
 #pragma warning restore CS1591
 
         /// <summary>
@@ -27,21 +29,26 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="pageSize"></param>
         /// <param name="pageNumber"></param>
+        /// <param name="lastEditedBy"></param>
+        /// <param name="colorID"></param>
+        /// <param name="outerPackageID"></param>
+        /// <param name="supplierID"></param>
+        /// <param name="unitPackageID"></param>
         /// <returns></returns>
-        [HttpGet("Charms")]
+        [HttpGet("Attributes")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetCharmsAsync(int pageSize = 10, int pageNumber = 1)
+        public async Task<IActionResult> GetAttributesAsync(int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(GetCharmsAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(GetAttributesAsync));
 
-            var response = new PagedResponse<Charms>();
+            var response = new PagedResponse<Attributes>();
 
             try
             {
                 // Get the "proposed" query from repository
-                var query = DbContext.GetCharms();
-                
+                var query = DbContext.GetAttributes();
+
                 // Set paging values
                 response.PageSize = pageSize;
                 response.PageNumber = pageNumber;
@@ -61,7 +68,7 @@ namespace ExaltedOnlineAPI.Controllers
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetCharmsAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetAttributesAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -72,27 +79,27 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("Charms/{id}")]
+        [HttpGet("Attributes/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetCharmsAsync(int id)
+        public async Task<IActionResult> GetAttributesAsync(int id)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(GetCharmsAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(GetAttributesAsync));
 
-            var response = new SingleResponse<Charms>();
+            var response = new SingleResponse<Attributes>();
 
             try
             {
                 // Get the stock item by id
-                response.Model = await DbContext.GetCharmsAsync(new Charms(id));
+                response.Model = await DbContext.GetAttributesAsync(new Attributes(id));
             }
             catch (Exception ex)
             {
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetCharmsAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetAttributesAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -103,24 +110,24 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost("Charms")]
+        [HttpPost("Attributes")]
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> PostCharmsAsync([FromBody]Charms request)
+        public async Task<IActionResult> PostAttributesAsync([FromBody]Attributes request)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(PostCharmsAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(PostAttributesAsync));
 
-            var response = new SingleResponse<Charms>();
+            var response = new SingleResponse<Attributes>();
 
             try
             {
                 var existingEntity = await DbContext
-                    .GetCharmsByCharmsNameAsync(new Charms { Name = request.Name });
+                    .GetAttributesByAttributesNameAsync(new Attributes { Name = request.Name });
 
                 if (existingEntity != null)
-                    ModelState.AddModelError("Charms", "Charm Name already exists");
+                    ModelState.AddModelError("Attributes", "Charm Name already exists");
 
                 if (!ModelState.IsValid)
                     return BadRequest();
@@ -142,7 +149,7 @@ namespace ExaltedOnlineAPI.Controllers
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PostCharmsAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PostAttributesAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -154,20 +161,20 @@ namespace ExaltedOnlineAPI.Controllers
         /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPut("Charms/{id}")]
+        [HttpPut("Attributes/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> PutCharmsAsync(int id, [FromBody]Charms request)
+        public async Task<IActionResult> PutAttributesAsync(int id, [FromBody]Attributes request)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(PutCharmsAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(PutAttributesAsync));
 
             var response = new Response();
 
             try
             {
                 // Get stock item by id
-                var entity = await DbContext.GetCharmsAsync(new Charms(id));
+                var entity = await DbContext.GetAttributesAsync(new Attributes(id));
 
                 // Validate if entity exists
                 if (entity == null)
@@ -176,13 +183,8 @@ namespace ExaltedOnlineAPI.Controllers
                 // Set changes to entity
                 entity.Id = request.Id;
                 entity.Name = request.Name;
-                entity.Essence = request.Essence;
-                entity.TypeId = request.TypeId;
-                entity.DurationId = request.DurationId;
+                entity.AttributeTypeId = request.AttributeTypeId;
                 entity.Description = request.Description;
-                entity.IsCustomCharm = request.IsCustomCharm;
-                entity.GameId = request.GameId;
-                entity.CharmAttributes = request.CharmAttributes;
 
                 // Update entity in repository
                 DbContext.Update(entity);
@@ -195,7 +197,7 @@ namespace ExaltedOnlineAPI.Controllers
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PutCharmsAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PutAttributesAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -206,19 +208,19 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("Charms/{id}")]
+        [HttpDelete("Attributes/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> DeleteCharmsAsync(int id)
+        public async Task<IActionResult> DeleteAttributesAsync(int id)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(DeleteCharmsAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(DeleteAttributesAsync));
 
             var response = new Response();
 
             try
             {
                 // Get stock item by id
-                var entity = await DbContext.GetCharmsAsync(new Charms(id));
+                var entity = await DbContext.GetAttributesAsync(new Attributes(id));
 
                 // Validate if entity exists
                 if (entity == null)
@@ -235,7 +237,7 @@ namespace ExaltedOnlineAPI.Controllers
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(DeleteCharmsAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(DeleteAttributesAsync), ex);
             }
 
             return response.ToHttpResponse();

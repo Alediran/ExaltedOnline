@@ -3,31 +3,91 @@ using Microsoft.Extensions.Configuration;
 
 namespace ExaltedOnlineAPI.Models
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class ExaltedDBContext : DbContext
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public ExaltedDBContext()
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
         public ExaltedDBContext(DbContextOptions<ExaltedDBContext> options)
             : base(options)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public static string SchemaName { get; } = "ExaltedDB";
 
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<AttributeTypes> AttributeTypes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<Attributes> Attributes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmAttributes> CharmAttributes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmCostTypes> CharmCostTypes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmCosts> CharmCosts { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmDurationTypes> CharmDurationTypes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmKeywordTypes> CharmKeywordTypes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmKeywords> CharmKeywords { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmPrerequisites> CharmPrerequisites { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<CharmTypes> CharmTypes { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual DbSet<Charms> Charms { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -36,6 +96,10 @@ namespace ExaltedOnlineAPI.Models
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AttributeTypes>(entity =>

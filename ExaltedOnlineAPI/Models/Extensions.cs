@@ -8,7 +8,7 @@ namespace ExaltedOnlineAPI.Models
     public static class ExaltedDBDbContextExtensions
     {
         #region "Charms"
-        public static IQueryable<Charms> GetCharms(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, int? Essence = null, bool? IsCustomCharm = null, int? GameId = null)
+        public static IQueryable<Charms> GetCharms(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, string Name = null, int? Essence = null, bool? IsCustomCharm = null, int? GameId = null)
         {
             // Get query from DbSet
             var query = dbContext.Charms.AsQueryable();
@@ -17,7 +17,11 @@ namespace ExaltedOnlineAPI.Models
             if (Id.HasValue)
                 query = query.Where(item => item.Id == Id);
 
-            // Filter by: 'Id'
+            // Filter by: 'Name'
+            if (!string.IsNullOrEmpty(Name))
+                query = query.Where(item => item.Name == Name);
+
+            // Filter by: 'Essence'
             if (Essence.HasValue)
                 query = query.Where(item => item.Essence == Essence);
 
@@ -29,7 +33,7 @@ namespace ExaltedOnlineAPI.Models
             if (GameId.HasValue)
                 query = query.Where(item => item.GameId == GameId);
 
-            return query;
+            return query.Include(c => c.CharmAttributes).ThenInclude(ca => ca.Attribute).ThenInclude(a=> a.AttributeType);                       
         }
 
         public static async Task<Charms> GetCharmsAsync(this ExaltedDBContext dbContext, Charms entity)
@@ -45,13 +49,48 @@ namespace ExaltedOnlineAPI.Models
                 Name = request.Name,
                 Essence = request.Essence,
                 TypeId = request.TypeId,
+                Type = request.Type,
                 DurationId = request.DurationId,
+                Duration = request.Duration,
                 Description = request.Description,
                 IsCustomCharm = request.IsCustomCharm,
-                GameId = request.GameId
+                GameId = request.GameId,
+                CharmAttributes = request.CharmAttributes
             };
         #endregion
 
+        #region "Attributes"
+        public static IQueryable<Attributes> GetAttributes(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, string Name = null)
+        {
+            // Get query from DbSet
+            var query = dbContext.Attributes.AsQueryable();
+
+            // Filter by: 'Id'
+            if (Id.HasValue)
+                query = query.Where(item => item.Id == Id);
+
+            // Filter by: 'Name'
+            if (!string.IsNullOrEmpty(Name))
+                query = query.Where(item => item.Name == Name);
+
+            return query;
+        }
+
+        public static async Task<Attributes> GetAttributesAsync(this ExaltedDBContext dbContext, Attributes entity)
+            => await dbContext.Attributes.FirstOrDefaultAsync(item => item.Id == entity.Id);
+
+        public static async Task<Attributes> GetAttributesByAttributesNameAsync(this ExaltedDBContext dbContext, Attributes entity)
+            => await dbContext.Attributes.FirstOrDefaultAsync(item => item.Name == entity.Name);
+
+        public static Attributes ToEntity(this Attributes request)
+            => new Attributes
+            {
+                Id = request.Id,
+                Name = request.Name,
+                AttributeTypeId = request.AttributeTypeId,
+                Description = request.Description
+            };
+        #endregion
 
     }
 

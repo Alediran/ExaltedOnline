@@ -83,6 +83,8 @@
     <Build Include="Foreign Keys\FK_CharmPrerequisites_Charms1.sql" />
     <Build Include="Tables\AttributeTypes.sql" />
     <Build Include="Foreign Keys\FK_Attributes_AttributeTypes.sql" />
+    <Build Include="Tables\TreeTypes.sql" />
+    <Build Include="Foreign Keys\FK_Charms_TreeTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ExaltedDB.refactorlog" />
