@@ -15,26 +15,53 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.OpenApi.Models;
 
 namespace ExaltedOnlineAPI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="configuration"></param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }  
+        /// <summary>
+        /// 
+        /// </summary>
+        public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        ///  This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
+            // Set up dependency injection for controller's logger
+            SetInjectionControllerLogger(ref services);
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExaltedOnline API", Version = "v1" });
+            });
+
             services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "ExaltedDB")));
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -43,13 +70,25 @@ namespace ExaltedOnlineAPI
             }
 
             app.UseRouting();
-
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExaltedOnline API V1");
+            });
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-            });            
+            });
+
         }
+
+        private void SetInjectionControllerLogger(ref IServiceCollection services)
+        {
+            services.AddScoped<ILogger, Logger<CharmsController>>();
+        }
+
     }
 }

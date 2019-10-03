@@ -8,7 +8,7 @@ namespace ExaltedOnlineAPI.Models
     public static class ExaltedDBDbContextExtensions
     {
         #region "Charms"
-        public static IQueryable<Charms> GetStockItems(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, int? Essence = null, bool? IsCustomCharm = null, int? GameId = null)
+        public static IQueryable<Charms> GetCharms(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, int? Essence = null, bool? IsCustomCharm = null, int? GameId = null)
         {
             // Get query from DbSet
             var query = dbContext.Charms.AsQueryable();
@@ -32,11 +32,24 @@ namespace ExaltedOnlineAPI.Models
             return query;
         }
 
-        public static async Task<Charms> GetStockItemsAsync(this ExaltedDBContext dbContext, Charms entity)
+        public static async Task<Charms> GetCharmsAsync(this ExaltedDBContext dbContext, Charms entity)
             => await dbContext.Charms.FirstOrDefaultAsync(item => item.Id == entity.Id);
 
-        public static async Task<Charms> GetStockItemsByStockItemNameAsync(this ExaltedDBContext dbContext, Charms entity)
+        public static async Task<Charms> GetCharmsByCharmsNameAsync(this ExaltedDBContext dbContext, Charms entity)
             => await dbContext.Charms.FirstOrDefaultAsync(item => item.Name == entity.Name);
+
+        public static Charms ToEntity(this Charms request)
+            => new Charms
+            {
+                Id = request.Id,
+                Name = request.Name,
+                Essence = request.Essence,
+                TypeId = request.TypeId,
+                DurationId = request.DurationId,
+                Description = request.Description,
+                IsCustomCharm = request.IsCustomCharm,
+                GameId = request.GameId
+            };
         #endregion
 
 
