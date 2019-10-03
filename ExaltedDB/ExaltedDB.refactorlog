@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="ee34c529-f46f-47db-9a49-e02fdbd03e8f" ChangeDateTime="10/02/2019 18:35:58">
+    <Property Name="ElementName" Value="[dbo].[Charms].[PrerequisiteCharms]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Charms]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PrerequisiteCharmsId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c6e105cc-c28d-4a68-9620-6a7e4613255b" ChangeDateTime="10/02/2019 18:42:32">
+    <Property Name="ElementName" Value="[dbo].[CharmCosts].[Costs]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharmCosts]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CostTypeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f9640e34-712a-4204-92df-49a118ff9b25" ChangeDateTime="10/02/2019 18:45:15">
+    <Property Name="ElementName" Value="[dbo].[CharmSkill].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharmSkill]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CharmId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4bdec2e1-71b9-4402-833a-a89edb0131eb" ChangeDateTime="10/02/2019 18:49:18">
+    <Property Name="ElementName" Value="[dbo].[CharmKeywords].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharmKeywords]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CharmId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4d85e03f-2d31-490b-8be4-0c70e3898e72" ChangeDateTime="10/02/2019 18:50:58">
+    <Property Name="ElementName" Value="[dbo].[CharmPrerequisites].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharmPrerequisites]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CharmId" />
+  </Operation>
+</Operations>
