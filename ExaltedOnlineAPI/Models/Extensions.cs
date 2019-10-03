@@ -7,6 +7,7 @@ namespace ExaltedOnlineAPI.Models
 #pragma warning disable CS1591
     public static class ExaltedDBDbContextExtensions
     {
+        #region "Charms"
         public static IQueryable<Charms> GetStockItems(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, int? Essence = null, bool? IsCustomCharm = null, int? GameId = null)
         {
             // Get query from DbSet
@@ -36,6 +37,9 @@ namespace ExaltedOnlineAPI.Models
 
         public static async Task<Charms> GetStockItemsByStockItemNameAsync(this ExaltedDBContext dbContext, Charms entity)
             => await dbContext.Charms.FirstOrDefaultAsync(item => item.Name == entity.Name);
+        #endregion
+
+
     }
 
     public static class IQueryableExtensions
