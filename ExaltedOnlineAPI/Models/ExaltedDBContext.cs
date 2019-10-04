@@ -1,105 +1,41 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ExaltedOnlineAPI.Models
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public partial class ExaltedDBContext : DbContext
     {
-        /// <summary>
-        /// 
-        /// </summary>
         public ExaltedDBContext()
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="options"></param>
         public ExaltedDBContext(DbContextOptions<ExaltedDBContext> options)
             : base(options)
         {
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public static string SchemaName { get; } = "ExaltedDB";
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<AttributeTypes> AttributeTypes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<Attributes> Attributes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmAttributes> CharmAttributes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmCostTypes> CharmCostTypes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmCosts> CharmCosts { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmDurationTypes> CharmDurationTypes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmKeywordTypes> CharmKeywordTypes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmKeywords> CharmKeywords { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmPrerequisites> CharmPrerequisites { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<CharmTypes> CharmTypes { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public virtual DbSet<Charms> Charms { get; set; }
+        public virtual DbSet<TreeTypes> TreeTypes { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="optionsBuilder"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ExaltedDB;Trusted_Connection=True;");
             }
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AttributeTypes>(entity =>
@@ -129,7 +65,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmAttributes>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.AttributeId })
-                    .HasName("PK__CharmAtt__5D6E5F39817C53F8");
+                    .HasName("PK__CharmAtt__5D6E5F3957359286");
 
                 entity.HasOne(d => d.Attribute)
                     .WithMany(p => p.CharmAttributes)
@@ -195,7 +131,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmKeywords>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.KeywordId })
-                    .HasName("PK__CharmKey__E20ADEF5B90C51FB");
+                    .HasName("PK__CharmKey__E20ADEF5B41697E1");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmKeywords)
@@ -213,7 +149,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmPrerequisites>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.CharmPrerequisiteId })
-                    .HasName("PK__CharmPre__F5505C0D1C10253B");
+                    .HasName("PK__CharmPre__F5505C0D6418C41A");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmPrerequisitesCharm)
@@ -251,11 +187,24 @@ namespace ExaltedOnlineAPI.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Charms_CharmDurationTypes");
 
+                entity.HasOne(d => d.TreeType)
+                    .WithMany(p => p.Charms)
+                    .HasForeignKey(d => d.TreeTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Charms_TreeTypes");
+
                 entity.HasOne(d => d.Type)
                     .WithMany(p => p.Charms)
                     .HasForeignKey(d => d.TypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Charms_CharmTypes");
+            });
+
+            modelBuilder.Entity<TreeTypes>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

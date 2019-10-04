@@ -97,8 +97,13 @@
     <None Include="Scripts\Attributes.sql" />
     <None Include="Scripts\Charms.sql" />
     <None Include="Scripts\CharmCostTypes.sql" />
+    <None Include="Scripts\TreeTypes.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -33,7 +33,10 @@ namespace ExaltedOnlineAPI.Models
             if (GameId.HasValue)
                 query = query.Where(item => item.GameId == GameId);
 
-            return query.Include(c => c.CharmAttributes).ThenInclude(ca => ca.Attribute).ThenInclude(a=> a.AttributeType);                       
+            return query.Include(c => c.TreeType)
+                        .Include(c => c.Duration)
+                        .Include(c=> c.Type)
+                        .Include(c => c.CharmAttributes).ThenInclude(ca => ca.Attribute);                       
         }
 
         public static async Task<Charms> GetCharmsAsync(this ExaltedDBContext dbContext, Charms entity)

@@ -55,8 +55,9 @@ namespace ExaltedOnlineAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExaltedOnline API", Version = "v1" });
             });
 
-            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "ExaltedDB")));
-
+            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "ExaltedDB")));      
+            
+            //services.AddMvc().AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = )
         }
 
         /// <summary>
