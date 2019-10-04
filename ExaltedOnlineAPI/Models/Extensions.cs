@@ -48,8 +48,6 @@ namespace ExaltedOnlineAPI.Models
                 Id = request.Id,
                 Name = request.Name,
                 Essence = request.Essence,
-                TreeTypeId = request.TreeTypeId,                
-                TreeType = request.TreeType,
                 TypeId = request.TypeId,
                 Type = request.Type,
                 DurationId = request.DurationId,
@@ -57,18 +55,18 @@ namespace ExaltedOnlineAPI.Models
                 Description = request.Description,
                 IsCustomCharm = request.IsCustomCharm,
                 GameId = request.GameId,
-                CharmAttributes = request.CharmAttributes,
+                CharmTraits = request.CharmTraits,
                 CharmCosts = request.CharmCosts,
                 CharmKeywords = request.CharmKeywords,
                 CharmPrerequisitesCharm = request.CharmPrerequisitesCharm                
             };
         #endregion
 
-        #region "Attributes"
-        public static IQueryable<Attributes> GetAttributes(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, string Name = null)
+        #region "Traits"
+        public static IQueryable<Traits> GetTraits(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, string Name = null)
         {
             // Get query from DbSet
-            var query = dbContext.Attributes.AsQueryable();
+            var query = dbContext.Traits.AsQueryable();
 
             // Filter by: 'Id'
             if (Id.HasValue)
@@ -81,18 +79,18 @@ namespace ExaltedOnlineAPI.Models
             return query;
         }
 
-        public static async Task<Attributes> GetAttributesAsync(this ExaltedDBContext dbContext, Attributes entity)
-            => await dbContext.Attributes.FirstOrDefaultAsync(item => item.Id == entity.Id);
+        public static async Task<Traits> GetTraitsAsync(this ExaltedDBContext dbContext, Traits entity)
+            => await dbContext.Traits.FirstOrDefaultAsync(item => item.Id == entity.Id);
 
-        public static async Task<Attributes> GetAttributesByAttributesNameAsync(this ExaltedDBContext dbContext, Attributes entity)
-            => await dbContext.Attributes.FirstOrDefaultAsync(item => item.Name == entity.Name);
+        public static async Task<Traits> GetTraitsByTraitsNameAsync(this ExaltedDBContext dbContext, Traits entity)
+            => await dbContext.Traits.FirstOrDefaultAsync(item => item.Name == entity.Name);
 
-        public static Attributes ToEntity(this Attributes request)
-            => new Attributes
+        public static Traits ToEntity(this Traits request)
+            => new Traits
             {
                 Id = request.Id,
                 Name = request.Name,
-                AttributeTypeId = request.AttributeTypeId,
+                TraitTypeId = request.TraitTypeId,
                 Description = request.Description
             };
         #endregion

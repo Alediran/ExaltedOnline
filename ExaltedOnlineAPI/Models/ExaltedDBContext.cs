@@ -15,39 +15,37 @@ namespace ExaltedOnlineAPI.Models
         {
         }
 
-        public virtual DbSet<AttributeTypes> AttributeTypes { get; set; }
-        public virtual DbSet<Attributes> Attributes { get; set; }
-        public virtual DbSet<CharmAttributes> CharmAttributes { get; set; }
+        public virtual DbSet<AdditionalAbilities> AdditionalAbilities { get; set; }
+        public virtual DbSet<CharacterAttributes> CharacterAttributes { get; set; }
+        public virtual DbSet<CharacterCharms> CharacterCharms { get; set; }
+        public virtual DbSet<CharacterIntimacies> CharacterIntimacies { get; set; }
+        public virtual DbSet<Characters> Characters { get; set; }
         public virtual DbSet<CharmCostTypes> CharmCostTypes { get; set; }
         public virtual DbSet<CharmCosts> CharmCosts { get; set; }
         public virtual DbSet<CharmDurationTypes> CharmDurationTypes { get; set; }
         public virtual DbSet<CharmKeywordTypes> CharmKeywordTypes { get; set; }
         public virtual DbSet<CharmKeywords> CharmKeywords { get; set; }
         public virtual DbSet<CharmPrerequisites> CharmPrerequisites { get; set; }
+        public virtual DbSet<CharmTraits> CharmTraits { get; set; }
         public virtual DbSet<CharmTypes> CharmTypes { get; set; }
         public virtual DbSet<Charms> Charms { get; set; }
-        public virtual DbSet<TreeTypes> TreeTypes { get; set; }
+        public virtual DbSet<Games> Games { get; set; }
+        public virtual DbSet<IntimaciesIntensity> IntimaciesIntensity { get; set; }
+        public virtual DbSet<TraitTypes> TraitTypes { get; set; }
+        public virtual DbSet<Traits> Traits { get; set; }
+        public virtual DbSet<Weapons> Weapons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ExaltedDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AttributeTypes>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<Attributes>(entity =>
+            modelBuilder.Entity<AdditionalAbilities>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
@@ -55,29 +53,91 @@ namespace ExaltedOnlineAPI.Models
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.HasOne(d => d.AttributeType)
-                    .WithMany(p => p.Attributes)
-                    .HasForeignKey(d => d.AttributeTypeId)
+                entity.HasOne(d => d.Character)
+                    .WithMany(p => p.AdditionalAbilities)
+                    .HasForeignKey(d => d.CharacterId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Attributes_AttributeTypes");
+                    .HasConstraintName("FK_AdditionalAbilities_Character");
             });
 
-            modelBuilder.Entity<CharmAttributes>(entity =>
+            modelBuilder.Entity<CharacterAttributes>(entity =>
             {
-                entity.HasKey(e => new { e.CharmId, e.AttributeId })
-                    .HasName("PK__CharmAtt__5D6E5F3957359286");
+                entity.HasKey(e => new { e.CharacterId, e.AttributeId })
+                    .HasName("PK__Characte__C9635B3E70D874FA");
+
+                entity.Property(e => e.IsFavored).HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.IsSupernal).HasDefaultValueSql("((0))");
 
                 entity.HasOne(d => d.Attribute)
-                    .WithMany(p => p.CharmAttributes)
+                    .WithMany(p => p.CharacterAttributes)
                     .HasForeignKey(d => d.AttributeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CharmAttributes_Attributes");
+                    .HasConstraintName("FK_CharacterAttributes_Attributes");
+
+                entity.HasOne(d => d.Character)
+                    .WithMany(p => p.CharacterAttributes)
+                    .HasForeignKey(d => d.CharacterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CharacterAttributes_Characters");
+            });
+
+            modelBuilder.Entity<CharacterCharms>(entity =>
+            {
+                entity.HasKey(e => new { e.CharacterId, e.CharmId })
+                    .HasName("PK__Characte__1B6CA57A5BDC7068");
+
+                entity.HasOne(d => d.Character)
+                    .WithMany(p => p.CharacterCharms)
+                    .HasForeignKey(d => d.CharacterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CharacterCharms_Characters");
 
                 entity.HasOne(d => d.Charm)
-                    .WithMany(p => p.CharmAttributes)
+                    .WithMany(p => p.CharacterCharms)
                     .HasForeignKey(d => d.CharmId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_CharmAtttributes_Charms");
+                    .HasConstraintName("FK_CharacterCharms_Charms");
+            });
+
+            modelBuilder.Entity<CharacterIntimacies>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.Character)
+                    .WithMany(p => p.CharacterIntimacies)
+                    .HasForeignKey(d => d.CharacterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CharacterIntimacies_Characters");
+
+                entity.HasOne(d => d.Intensity)
+                    .WithMany(p => p.CharacterIntimacies)
+                    .HasForeignKey(d => d.IntensityId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CharacterIntimacies_IntimaciesIntensity");
+            });
+
+            modelBuilder.Entity<Characters>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Anima).HasMaxLength(50);
+
+                entity.Property(e => e.Concept).HasMaxLength(50);
+
+                entity.Property(e => e.EssenceCurrentPeripheral)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.Property(e => e.LimitTrigger).HasMaxLength(50);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<CharmCostTypes>(entity =>
@@ -131,7 +191,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmKeywords>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.KeywordId })
-                    .HasName("PK__CharmKey__E20ADEF5B41697E1");
+                    .HasName("PK__CharmKey__E20ADEF54960D63C");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmKeywords)
@@ -149,7 +209,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmPrerequisites>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.CharmPrerequisiteId })
-                    .HasName("PK__CharmPre__F5505C0D6418C41A");
+                    .HasName("PK__CharmPre__F5505C0D0515B727");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmPrerequisitesCharm)
@@ -162,6 +222,24 @@ namespace ExaltedOnlineAPI.Models
                     .HasForeignKey(d => d.CharmPrerequisiteId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_CharmPrerequisites_Charms1");
+            });
+
+            modelBuilder.Entity<CharmTraits>(entity =>
+            {
+                entity.HasKey(e => new { e.CharmId, e.TraitId })
+                    .HasName("PK__CharmTra__09A0D80BB353B2A3");
+
+                entity.HasOne(d => d.Charm)
+                    .WithMany(p => p.CharmTraits)
+                    .HasForeignKey(d => d.CharmId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CharmAtttributes_Charms");
+
+                entity.HasOne(d => d.Trait)
+                    .WithMany(p => p.CharmTraits)
+                    .HasForeignKey(d => d.TraitId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_CharmTraits_Traits");
             });
 
             modelBuilder.Entity<CharmTypes>(entity =>
@@ -187,12 +265,6 @@ namespace ExaltedOnlineAPI.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Charms_CharmDurationTypes");
 
-                entity.HasOne(d => d.TreeType)
-                    .WithMany(p => p.Charms)
-                    .HasForeignKey(d => d.TreeTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Charms_TreeTypes");
-
                 entity.HasOne(d => d.Type)
                     .WithMany(p => p.Charms)
                     .HasForeignKey(d => d.TypeId)
@@ -200,11 +272,61 @@ namespace ExaltedOnlineAPI.Models
                     .HasConstraintName("FK_Charms_CharmTypes");
             });
 
-            modelBuilder.Entity<TreeTypes>(entity =>
+            modelBuilder.Entity<Games>(entity =>
             {
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name).HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<IntimaciesIntensity>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Description).IsRequired();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<TraitTypes>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<Traits>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.TraitType)
+                    .WithMany(p => p.Traits)
+                    .HasForeignKey(d => d.TraitTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Traits_TraitTypes");
+            });
+
+            modelBuilder.Entity<Weapons>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.HasOne(d => d.Character)
+                    .WithMany(p => p.Weapons)
+                    .HasForeignKey(d => d.CharacterId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Weapons_Characters");
             });
 
             OnModelCreatingPartial(modelBuilder);

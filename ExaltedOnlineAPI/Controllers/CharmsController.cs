@@ -182,7 +182,7 @@ namespace ExaltedOnlineAPI.Controllers
                 entity.Description = request.Description;
                 entity.IsCustomCharm = request.IsCustomCharm;
                 entity.GameId = request.GameId;
-                entity.CharmAttributes = request.CharmAttributes;
+               // entity.CharmTraits = request.CharmTraits;
 
                 // Update entity in repository
                 DbContext.Update(entity);

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace ExaltedOnlineAPI.Models
 {
-    public partial class AttributeTypes
+    public partial class TraitTypes
     {
-        public AttributeTypes()
+        public TraitTypes()
         {
-            Attributes = new HashSet<Attributes>();
+            Traits = new HashSet<Traits>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<Attributes> Attributes { get; set; }
+        public virtual ICollection<Traits> Traits { get; set; }
     }
 }

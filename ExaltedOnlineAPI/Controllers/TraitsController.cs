@@ -8,14 +8,14 @@ using ExaltedOnlineAPI.Models;
 namespace ExaltedOnlineAPI.Controllers
 {
 #pragma warning disable CS1591
-    [Route("api/Attributes")]
+    [Route("api/Traits")]
     [ApiController]
-    public class AttributesController : ControllerBase
+    public class TraitsController : ControllerBase
     {
         protected readonly ILogger Logger;
         protected readonly ExaltedDBContext DbContext;
 
-        public AttributesController(ILogger<AttributesController> logger, ExaltedDBContext dbContext)
+        public TraitsController(ILogger<TraitsController> logger, ExaltedDBContext dbContext)
         {
             Logger = logger;
             DbContext = dbContext;
@@ -35,19 +35,19 @@ namespace ExaltedOnlineAPI.Controllers
         /// <param name="supplierID"></param>
         /// <param name="unitPackageID"></param>
         /// <returns></returns>
-        [HttpGet("Attributes")]
+        [HttpGet("Traits")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAttributesAsync(int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
+        public async Task<IActionResult> GetTraitsAsync(int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(GetAttributesAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(GetTraitsAsync));
 
-            var response = new PagedResponse<Attributes>();
+            var response = new PagedResponse<Traits>();
 
             try
             {
                 // Get the "proposed" query from repository
-                var query = DbContext.GetAttributes();
+                var query = DbContext.GetTraits();
 
                 // Set paging values
                 response.PageSize = pageSize;
@@ -68,7 +68,7 @@ namespace ExaltedOnlineAPI.Controllers
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetAttributesAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetTraitsAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -79,27 +79,27 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("Attributes/{id}")]
+        [HttpGet("Traits/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAttributesAsync(int id)
+        public async Task<IActionResult> GetTraitsAsync(int id)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(GetAttributesAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(GetTraitsAsync));
 
-            var response = new SingleResponse<Attributes>();
+            var response = new SingleResponse<Traits>();
 
             try
             {
                 // Get the stock item by id
-                response.Model = await DbContext.GetAttributesAsync(new Attributes(id));
+                response.Model = await DbContext.GetTraitsAsync(new Traits(id));
             }
             catch (Exception ex)
             {
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetAttributesAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(GetTraitsAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -110,24 +110,24 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPost("Attributes")]
+        [HttpPost("Traits")]
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> PostAttributesAsync([FromBody]Attributes request)
+        public async Task<IActionResult> PostTraitsAsync([FromBody]Traits request)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(PostAttributesAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(PostTraitsAsync));
 
-            var response = new SingleResponse<Attributes>();
+            var response = new SingleResponse<Traits>();
 
             try
             {
                 var existingEntity = await DbContext
-                    .GetAttributesByAttributesNameAsync(new Attributes { Name = request.Name });
+                    .GetTraitsByTraitsNameAsync(new Traits { Name = request.Name });
 
                 if (existingEntity != null)
-                    ModelState.AddModelError("Attributes", "Charm Name already exists");
+                    ModelState.AddModelError("Traits", "Charm Name already exists");
 
                 if (!ModelState.IsValid)
                     return BadRequest();
@@ -149,7 +149,7 @@ namespace ExaltedOnlineAPI.Controllers
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PostAttributesAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PostTraitsAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -161,43 +161,43 @@ namespace ExaltedOnlineAPI.Controllers
         /// <param name="id"></param>
         /// <param name="request"></param>
         /// <returns></returns>
-        [HttpPut("Attributes/{id}")]
+        [HttpPut("Traits/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> PutAttributesAsync(int id, [FromBody]Attributes request)
+        public async Task<IActionResult> PutTraitsAsync(int id, [FromBody]Traits request)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(PutAttributesAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(PutTraitsAsync));
 
             var response = new Response();
 
             try
             {
                 // Get stock item by id
-                var entity = await DbContext.GetAttributesAsync(new Attributes(id));
+                //var entity = await DbContext.GetTraitsAsync(new Traits(id));
 
-                // Validate if entity exists
-                if (entity == null)
-                    return NotFound();
+                //// Validate if entity exists
+                //if (entity == null)
+                //    return NotFound();
 
-                // Set changes to entity
-                entity.Id = request.Id;
-                entity.Name = request.Name;
-                entity.AttributeTypeId = request.AttributeTypeId;
-                entity.Description = request.Description;
+                //// Set changes to entity
+                //entity.Id = request.Id;
+                //entity.Name = request.Name;
+                //entity.AttributeTypeId = request.AttributeTypeId;
+                //entity.Description = request.Description;
 
-                // Update entity in repository
-                DbContext.Update(entity);
+                //// Update entity in repository
+                //DbContext.Update(entity);
 
-                // Save entity in database
-                await DbContext.SaveChangesAsync();
+                //// Save entity in database
+                //await DbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PutAttributesAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(PutTraitsAsync), ex);
             }
 
             return response.ToHttpResponse();
@@ -208,19 +208,19 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("Attributes/{id}")]
+        [HttpDelete("Traits/{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> DeleteAttributesAsync(int id)
+        public async Task<IActionResult> DeleteTraitsAsync(int id)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(DeleteAttributesAsync));
+            Logger?.LogDebug("'{0}' has been invoked", nameof(DeleteTraitsAsync));
 
             var response = new Response();
 
             try
             {
-                // Get stock item by id
-                var entity = await DbContext.GetAttributesAsync(new Attributes(id));
+               // Get stock item by id
+               var entity = await DbContext.GetTraitsAsync(new Traits(id));
 
                 // Validate if entity exists
                 if (entity == null)
@@ -237,7 +237,7 @@ namespace ExaltedOnlineAPI.Controllers
                 response.DidError = true;
                 response.ErrorMessage = "There was an internal error, please contact to technical support.";
 
-                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(DeleteAttributesAsync), ex);
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(DeleteTraitsAsync), ex);
             }
 
             return response.ToHttpResponse();

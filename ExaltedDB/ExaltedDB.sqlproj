@@ -64,8 +64,8 @@
     <Build Include="Tables\Charms.sql" />
     <Build Include="Tables\CharmCostTypes.sql" />
     <Build Include="Tables\CharmCosts.sql" />
-    <Build Include="Tables\Attributes.sql" />
-    <Build Include="Tables\CharmAttributes.sql" />
+    <Build Include="Tables\Traits.sql" />
+    <Build Include="Tables\CharmTraits.sql" />
     <Build Include="Tables\CharmTypes.sql" />
     <Build Include="Tables\CharmKeywordTypes.sql" />
     <Build Include="Tables\CharmKeywords.sql" />
@@ -81,12 +81,8 @@
     <Build Include="Foreign Keys\FK_Charms_CharmDurationTypes.sql" />
     <Build Include="Foreign Keys\FK_CharmPrerequisites_Charms.sql" />
     <Build Include="Foreign Keys\FK_CharmPrerequisites_Charms1.sql" />
-    <Build Include="Tables\AttributeTypes.sql" />
-    <Build Include="Foreign Keys\FK_Attributes_AttributeTypes.sql" />
-    <Build Include="Tables\TreeTypes.sql" />
+    <Build Include="Tables\TraitTypes.sql" />
     <Build Include="Foreign Keys\FK_Charms_TreeTypes.sql" />
-    <Build Include="Tables\Castes.sql" />
-    <Build Include="Foreign Keys\FK_Castes_TreeTypes.sql" />
     <Build Include="Tables\Characters.sql" />
     <Build Include="Tables\CharacterAttributes.sql" />
     <Build Include="Tables\AdditionalAbilities.sql" />
@@ -104,11 +100,9 @@
     <None Include="Scripts\CharmKeywordTypes.sql" />
     <None Include="Scripts\CharmTypes.sql" />
     <None Include="Scripts\CharmDurationTypes.sql" />
-    <None Include="Scripts\Attributes.sql" />
+    <None Include="Scripts\Traits.sql" />
     <None Include="Scripts\Charms.sql" />
     <None Include="Scripts\CharmCostTypes.sql" />
-    <None Include="Scripts\TreeTypes.sql" />
-    <None Include="Scripts\Castes.sql" />
     <None Include="Scripts\IntimaciesIntensity.sql" />
   </ItemGroup>
   <ItemGroup>

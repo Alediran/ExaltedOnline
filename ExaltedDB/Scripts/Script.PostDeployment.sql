@@ -15,8 +15,6 @@ Post-Deployment Script Template
 :r .\CharmKeywordTypes.sql --Inserts the Charm Keywords data
 :r .\CharmDurationTypes.sql --Inserts the Charm Duration data
 :r .\CharmCostTypes.sql --Inserts the Charm Cost Types data
-:r .\Attributes.sql --Inserts the Attributes data
-:r .\TreeTypes.sql --Inserts the Tree Types data
-:r .\Castes.sql --Inserts the Castes data
+:r .\Traits.sql --Inserts the Attributes data
 :r .\Charms.sql --Inserts the Charm data
 :r .\IntimaciesIntensity.sql --Inserts the Intimacies Intensity data

@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[AttributeTypes]
+﻿CREATE TABLE [dbo].[TraitTypes]
 (
 	[Id] INT NOT NULL PRIMARY KEY, 
     [Name] NVARCHAR(50) NOT NULL

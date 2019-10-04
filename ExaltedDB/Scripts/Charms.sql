@@ -7,8 +7,8 @@ where not exists (select 1 from dbo.Charms where Id = 1)
 INSERT dbo.CharmCosts select 1, 1, 1, 1
 where not exists (select 1 from dbo.CharmCosts where CharmId = 1 and CostTypeId = 1)
 
-INSERT dbo.CharmAttributes select 1, 10, 1, 2
-where not exists (select 1 from dbo.CharmAttributes where CharmId = 1 and AttributeId = 10)
+INSERT dbo.CharmTraits select 1, 10, 1, 2
+where not exists (select 1 from dbo.CharmTraits where CharmId = 1 and TraitId = 10)
 
 INSERT dbo.CharmKeywords select 1, 13, 1
 where not exists (select 1 from dbo.CharmKeywords where CharmId = 1 and KeywordId = 13)
@@ -27,8 +27,8 @@ INSERT dbo.CharmCosts select 16, 2, 2, 1
 where not exists (select 1 from dbo.CharmCosts where CharmId = 16 and CostTypeId = 2)
 
 --CharmId, AttributeId, DisplayOrder, AttributeLevel
-INSERT dbo.CharmAttributes select 16, 10, 1, 5
-where not exists (select 1 from dbo.CharmAttributes where CharmId = 16 and AttributeId = 10)
+INSERT dbo.CharmTraits select 16, 10, 1, 5
+where not exists (select 1 from dbo.CharmTraits where CharmId = 16 and TraitId = 10)
 
 --CharmId, KeywordId, DisplayOrder
 INSERT dbo.CharmKeywords select 16, 10, 1
