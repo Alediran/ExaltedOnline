@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ExaltedOnlineAPI.Models
 {
@@ -21,6 +22,8 @@ namespace ExaltedOnlineAPI.Models
         public string Description { get; set; }
 
         public virtual AttributeTypes AttributeType { get; set; }
+
+        [JsonIgnore]
         public virtual ICollection<CharmAttributes> CharmAttributes { get; set; }
     }
 }

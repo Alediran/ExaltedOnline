@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 
 namespace ExaltedOnlineAPI
 {
@@ -55,9 +56,9 @@ namespace ExaltedOnlineAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExaltedOnline API", Version = "v1" });
             });
 
-            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "ExaltedDB")));      
-            
-            //services.AddMvc().AddJsonOptions(o => o.JsonSerializerOptions.PropertyNamingPolicy = )
+            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "ExaltedDB")));
+
+            //services.AddMvc().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
         }
 
         /// <summary>

@@ -42,4 +42,32 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="TreeTypeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="695003fe-96d2-4871-83f8-a0a6e9dc7e8d" ChangeDateTime="10/04/2019 14:36:54">
+    <Property Name="ElementName" Value="[dbo].[Characters].[Anima:]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Characters]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Anima" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3ea26c7b-2ea3-44b5-9c9f-f125082b5eb0" ChangeDateTime="10/04/2019 14:40:10">
+    <Property Name="ElementName" Value="[dbo].[CharacterAttributes].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharacterAttributes]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CharacterId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a5946056-cfae-41f7-9e05-0efeaca6964a" ChangeDateTime="10/04/2019 14:48:13">
+    <Property Name="ElementName" Value="[dbo].[CharacterCharms].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CharacterCharms]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CharacterId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1d46e59d-d93e-4143-8058-06a91c477f6f" ChangeDateTime="10/04/2019 15:32:07">
+    <Property Name="ElementName" Value="[dbo].[Games].[Owner]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Games]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OwnerId" />
+  </Operation>
 </Operations>

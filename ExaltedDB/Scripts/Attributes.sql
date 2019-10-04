@@ -1,16 +1,16 @@
 ﻿print 'Inserting Seed data for table AttributeTypes'
 
 INSERT dbo.AttributeTypes select 1, 'Attribute'
-where not exists (select 1 from dbo.Attributes where Id = 1)
+where not exists (select 1 from dbo.AttributeTypes where Id = 1)
 
 INSERT dbo.AttributeTypes select 2, 'Abilities'
-where not exists (select 1 from dbo.Attributes where Id = 2)
+where not exists (select 1 from dbo.AttributeTypes where Id = 2)
 
 INSERT dbo.AttributeTypes select 3, 'Merit'
-where not exists (select 1 from dbo.Attributes where Id = 3)
+where not exists (select 1 from dbo.AttributeTypes where Id = 3)
 
 INSERT dbo.AttributeTypes select 4, 'Flaw'
-where not exists (select 1 from dbo.Attributes where Id = 4)
+where not exists (select 1 from dbo.AttributeTypes where Id = 4)
 
 
 

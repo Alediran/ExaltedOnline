@@ -85,6 +85,16 @@
     <Build Include="Foreign Keys\FK_Attributes_AttributeTypes.sql" />
     <Build Include="Tables\TreeTypes.sql" />
     <Build Include="Foreign Keys\FK_Charms_TreeTypes.sql" />
+    <Build Include="Tables\Castes.sql" />
+    <Build Include="Foreign Keys\FK_Castes_TreeTypes.sql" />
+    <Build Include="Tables\Characters.sql" />
+    <Build Include="Tables\CharacterAttributes.sql" />
+    <Build Include="Tables\AdditionalAbilities.sql" />
+    <Build Include="Tables\Weapons.sql" />
+    <Build Include="Tables\CharacterCharms.sql" />
+    <Build Include="Tables\CharacterIntimacies.sql" />
+    <Build Include="Tables\IntimaciesIntensity.sql" />
+    <Build Include="Tables\Games.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ExaltedDB.refactorlog" />
@@ -98,6 +108,8 @@
     <None Include="Scripts\Charms.sql" />
     <None Include="Scripts\CharmCostTypes.sql" />
     <None Include="Scripts\TreeTypes.sql" />
+    <None Include="Scripts\Castes.sql" />
+    <None Include="Scripts\IntimaciesIntensity.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\Script.PostDeployment.sql" />

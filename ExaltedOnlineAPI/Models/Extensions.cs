@@ -11,7 +11,7 @@ namespace ExaltedOnlineAPI.Models
         public static IQueryable<Charms> GetCharms(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, string Name = null, int? Essence = null, bool? IsCustomCharm = null, int? GameId = null)
         {
             // Get query from DbSet
-            var query = dbContext.Charms.AsQueryable();
+            var query = dbContext.Charms.AsQueryable();            
 
             // Filter by: 'Id'
             if (Id.HasValue)
@@ -33,10 +33,7 @@ namespace ExaltedOnlineAPI.Models
             if (GameId.HasValue)
                 query = query.Where(item => item.GameId == GameId);
 
-            return query.Include(c => c.TreeType)
-                        .Include(c => c.Duration)
-                        .Include(c=> c.Type)
-                        .Include(c => c.CharmAttributes).ThenInclude(ca => ca.Attribute);                       
+            return query;                       
         }
 
         public static async Task<Charms> GetCharmsAsync(this ExaltedDBContext dbContext, Charms entity)
@@ -51,6 +48,8 @@ namespace ExaltedOnlineAPI.Models
                 Id = request.Id,
                 Name = request.Name,
                 Essence = request.Essence,
+                TreeTypeId = request.TreeTypeId,                
+                TreeType = request.TreeType,
                 TypeId = request.TypeId,
                 Type = request.Type,
                 DurationId = request.DurationId,
@@ -58,7 +57,10 @@ namespace ExaltedOnlineAPI.Models
                 Description = request.Description,
                 IsCustomCharm = request.IsCustomCharm,
                 GameId = request.GameId,
-                CharmAttributes = request.CharmAttributes
+                CharmAttributes = request.CharmAttributes,
+                CharmCosts = request.CharmCosts,
+                CharmKeywords = request.CharmKeywords,
+                CharmPrerequisitesCharm = request.CharmPrerequisitesCharm                
             };
         #endregion
 

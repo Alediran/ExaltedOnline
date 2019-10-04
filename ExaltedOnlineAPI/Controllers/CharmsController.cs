@@ -54,7 +54,7 @@ namespace ExaltedOnlineAPI.Controllers
 
                 response.Message = string.Format("Page {0} of {1}, Total of products: {2}.", pageNumber, response.PageCount, response.ItemsCount);
 
-                Logger?.LogInformation("The stock items have been retrieved successfully.");
+                Logger?.LogInformation("The charms have been retrieved successfully.");
             }
             catch (Exception ex)
             {

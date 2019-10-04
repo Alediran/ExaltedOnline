@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ExaltedOnlineAPI.Models
 {
@@ -13,6 +14,7 @@ namespace ExaltedOnlineAPI.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
+        //[JsonIgnore]
         public virtual ICollection<Charms> Charms { get; set; }
     }
 }
