@@ -83,17 +83,45 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:ExaltedOnlineAPI.Models.Charms">
+            <summary>
+            Main object for the Charms table
+            </summary>
+        </member>
         <member name="M:ExaltedOnlineAPI.Models.Charms.#ctor(System.Int32)">
             <summary>
             
             </summary>
             <param name="id"></param>
         </member>
+        <member name="T:ExaltedOnlineAPI.Models.Traits">
+            <summary>
+            Main object for the Traits table
+            </summary>
+        </member>
         <member name="M:ExaltedOnlineAPI.Models.Traits.#ctor(System.Int32)">
             <summary>
             
             </summary>
             <param name="id"></param>
+        </member>
+        <member name="T:ExaltedOnlineAPI.Program">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ExaltedOnlineAPI.Program.Main(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+        </member>
+        <member name="M:ExaltedOnlineAPI.Program.CreateHostBuilder(System.String[])">
+            <summary>
+            
+            </summary>
+            <param name="args"></param>
+            <returns></returns>
         </member>
         <member name="T:ExaltedOnlineAPI.Startup">
             <summary>

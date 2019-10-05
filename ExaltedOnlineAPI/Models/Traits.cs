@@ -9,6 +9,7 @@ namespace ExaltedOnlineAPI.Models
         {
             CharacterAttributes = new HashSet<CharacterAttributes>();
             CharmTraits = new HashSet<CharmTraits>();
+            InverseParent = new HashSet<Traits>();
         }
 
         public int Id { get; set; }
@@ -17,8 +18,10 @@ namespace ExaltedOnlineAPI.Models
         public int TraitTypeId { get; set; }
         public string Description { get; set; }
 
+        public virtual Traits Parent { get; set; }
         public virtual TraitTypes TraitType { get; set; }
         public virtual ICollection<CharacterAttributes> CharacterAttributes { get; set; }
         public virtual ICollection<CharmTraits> CharmTraits { get; set; }
+        public virtual ICollection<Traits> InverseParent { get; set; }
     }
 }

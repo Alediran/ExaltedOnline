@@ -4,46 +4,95 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ExaltedOnlineAPI.Models
 {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
     public partial class ExaltedDBContext : DbContext
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     {
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public ExaltedDBContext()
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public ExaltedDBContext(DbContextOptions<ExaltedDBContext> options)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
             : base(options)
         {
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<AdditionalAbilities> AdditionalAbilities { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharacterAttributes> CharacterAttributes { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharacterCharms> CharacterCharms { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharacterIntimacies> CharacterIntimacies { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<Characters> Characters { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmCostTypes> CharmCostTypes { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmCosts> CharmCosts { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmDurationTypes> CharmDurationTypes { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmKeywordTypes> CharmKeywordTypes { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmKeywords> CharmKeywords { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmPrerequisites> CharmPrerequisites { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmTraits> CharmTraits { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<CharmTypes> CharmTypes { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<Charms> Charms { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<Games> Games { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<IntimaciesIntensity> IntimaciesIntensity { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<TraitTypes> TraitTypes { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<Traits> Traits { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public virtual DbSet<Weapons> Weapons { get; set; }
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             if (!optionsBuilder.IsConfigured)
             {
+
                 optionsBuilder.UseSqlServer("");
             }
         }
 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         protected override void OnModelCreating(ModelBuilder modelBuilder)
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             modelBuilder.Entity<AdditionalAbilities>(entity =>
             {
@@ -63,7 +112,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharacterAttributes>(entity =>
             {
                 entity.HasKey(e => new { e.CharacterId, e.AttributeId })
-                    .HasName("PK__Characte__C9635B3E70D874FA");
+                    .HasName("PK__Characte__C9635B3E5DA9D7EB");
 
                 entity.Property(e => e.IsFavored).HasDefaultValueSql("((0))");
 
@@ -85,7 +134,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharacterCharms>(entity =>
             {
                 entity.HasKey(e => new { e.CharacterId, e.CharmId })
-                    .HasName("PK__Characte__1B6CA57A5BDC7068");
+                    .HasName("PK__Characte__1B6CA57AF937A3CE");
 
                 entity.HasOne(d => d.Character)
                     .WithMany(p => p.CharacterCharms)
@@ -191,7 +240,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmKeywords>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.KeywordId })
-                    .HasName("PK__CharmKey__E20ADEF54960D63C");
+                    .HasName("PK__CharmKey__E20ADEF571BAFE44");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmKeywords)
@@ -209,7 +258,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmPrerequisites>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.CharmPrerequisiteId })
-                    .HasName("PK__CharmPre__F5505C0D0515B727");
+                    .HasName("PK__CharmPre__F5505C0D2DD5C076");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmPrerequisitesCharm)
@@ -227,7 +276,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmTraits>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.TraitId })
-                    .HasName("PK__CharmTra__09A0D80BB353B2A3");
+                    .HasName("PK__CharmTra__09A0D80B9E163D09");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmTraits)
@@ -306,6 +355,11 @@ namespace ExaltedOnlineAPI.Models
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50);
+
+                entity.HasOne(d => d.Parent)
+                    .WithMany(p => p.InverseParent)
+                    .HasForeignKey(d => d.ParentId)
+                    .HasConstraintName("FK_Traits_ToParentTraits");
 
                 entity.HasOne(d => d.TraitType)
                     .WithMany(p => p.Traits)

@@ -1,0 +1,6 @@
+<table>
+  <tr>
+    <td>{{Name}}</td>
+    <td><ul><li *ngFor="let i of checklist"><app-circular-check [Name]="Name" [Position]="i.id" [Checked]="i.isSelected" (click)="setCurrent(i.id)"></app-circular-check></li></ul></td>
+  </tr>
+</table>

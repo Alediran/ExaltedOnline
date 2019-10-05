@@ -174,23 +174,23 @@ namespace ExaltedOnlineAPI.Controllers
             try
             {
                 // Get stock item by id
-                //var entity = await DbContext.GetTraitsAsync(new Traits(id));
+                var entity = await DbContext.GetTraitsAsync(new Traits(id));
 
                 //// Validate if entity exists
-                //if (entity == null)
-                //    return NotFound();
+                if (entity == null)
+                    return NotFound();
 
                 //// Set changes to entity
-                //entity.Id = request.Id;
-                //entity.Name = request.Name;
-                //entity.AttributeTypeId = request.AttributeTypeId;
-                //entity.Description = request.Description;
+                entity.Id = request.Id;
+                entity.Name = request.Name;
+                entity.TraitTypeId = request.TraitTypeId;
+                entity.Description = request.Description;
 
                 //// Update entity in repository
-                //DbContext.Update(entity);
+                DbContext.Update(entity);
 
                 //// Save entity in database
-                //await DbContext.SaveChangesAsync();
+                await DbContext.SaveChangesAsync();
             }
             catch (Exception ex)
             {

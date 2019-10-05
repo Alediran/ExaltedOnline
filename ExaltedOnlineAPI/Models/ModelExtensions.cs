@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 
 namespace ExaltedOnlineAPI.Models
 {
+    /// <summary>
+    /// Main object for the Charms table
+    /// </summary>
     public partial class Charms
     {
         /// <summary>
@@ -17,6 +20,9 @@ namespace ExaltedOnlineAPI.Models
         }
     }
 
+    /// <summary>
+    /// Main object for the Traits table
+    /// </summary>
     public partial class Traits
     {
         /// <summary>
