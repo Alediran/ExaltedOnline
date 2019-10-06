@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
     selector: 'app-trait',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./trait.component.scss']
 })
 export class TraitComponent implements OnInit {
-    Name: String = "Strength";
-    MinValue: number = 1;
-    MaxValue: number = 5;
-    CurrentValue: number = 2;
+    @Input() Name: String = "Strength";
+    @Input() MinValue: number = 2;
+    @Input() MaxValue: number = 5;
+    @Input() CurrentValue: number = 0;
+
     checklist: any = [];
     checkedList: any = [];
 
@@ -38,15 +39,21 @@ export class TraitComponent implements OnInit {
                 }
             }
         }
+
+        document.documentElement.style.setProperty('--color-dark', 'red');
     }
 
     setCurrent(currentValue: number) {
-        this.CurrentValue = currentValue;
+        
         var i;
 
+        if (currentValue == 1 && this.CurrentValue == 1 && this.checklist[currentValue - 1].isSelected)
+            currentValue = 0;
+        
+        this.CurrentValue = currentValue;
+
         for (i = 0; i < this.MaxValue; i++) {
-            this.checklist[i].isSelected = (i <= Math.max(this.MinValue, this.CurrentValue)) ? true : false;
+            this.checklist[i].isSelected = (i < Math.max(this.MinValue, this.CurrentValue)) ? true : false;
         }
     }
-
 }
