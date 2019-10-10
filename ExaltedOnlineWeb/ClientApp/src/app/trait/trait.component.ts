@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TraitComponent implements OnInit {
     @Input() Name: String = "Strength";
-    @Input() MinValue: number = 2;
+    @Input() MinValue: number = 1;
     @Input() MaxValue: number = 5;
     @Input() CurrentValue: number = 0;
 

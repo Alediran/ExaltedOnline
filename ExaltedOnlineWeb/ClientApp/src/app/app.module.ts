@@ -1,3 +1,4 @@
+import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxPrettyCheckboxModule } from 'ngx-pretty-checkbox';
@@ -8,6 +9,12 @@ import { TraitComponent } from './trait/trait.component';
 import { CharmComponent } from './charm/charm.component';
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
 
+const RoutesApp: Routes = [
+    { path: 'charm', component:CharmComponent }
+
+]
+
+
 @NgModule({
   declarations: [
         AppComponent,
@@ -16,7 +23,8 @@ import { CharacterSheetComponent } from './character-sheet/character-sheet.compo
         CharmComponent,
         CharacterSheetComponent
   ],
-  imports: [
+    imports: [
+        RouterModule.forRoot(RoutesApp),
       BrowserModule,
       NgxPrettyCheckboxModule
   ],

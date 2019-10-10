@@ -116,7 +116,7 @@
             </summary>
             <param name="args"></param>
         </member>
-        <member name="M:ExaltedOnlineAPI.Program.CreateHostBuilder(System.String[])">
+        <member name="M:ExaltedOnlineAPI.Program.CreateWebHostBuilder(System.String[])">
             <summary>
             
             </summary>
