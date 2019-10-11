@@ -2,15 +2,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NgxPrettyCheckboxModule } from 'ngx-pretty-checkbox';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
+import { ApiService } from './core/api.service'
 import { CircularCheckComponent } from './circular-check/circular-check.component';
 import { TraitComponent } from './trait/trait.component';
 import { CharmComponent } from './charm/charm.component';
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
 
 const RoutesApp: Routes = [
-    { path: 'charm', component:CharmComponent }
+    { path: 'charm', component: CharmComponent },
+    { path: 'trait', component: TraitComponent }
 
 ]
 
@@ -25,10 +28,11 @@ const RoutesApp: Routes = [
   ],
     imports: [
         RouterModule.forRoot(RoutesApp),
-      BrowserModule,
-      NgxPrettyCheckboxModule
+        BrowserModule,
+        HttpClientModule,
+        NgxPrettyCheckboxModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+    providers: [ApiService],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

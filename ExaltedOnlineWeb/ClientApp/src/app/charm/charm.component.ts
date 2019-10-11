@@ -1,10 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../core/api.service';
+import { Observable } from 'rxjs';
+import { Charm } from '../core/charm.model';
 
 @Component({
-  selector: 'app-charm',
-  templateUrl: './charm.component.html',
-  styleUrls: ['./charm.component.scss']
+    selector: 'app-charm',
+    templateUrl: './charm.component.html',
+    styleUrls: ['./charm.component.scss']
 })
 export class CharmComponent implements OnInit {
 
@@ -12,16 +14,18 @@ export class CharmComponent implements OnInit {
     @Input() Cost: string = '1m';
     @Input() Mins: string = 'Archery 2, Essence 1';
     @Input() Description: string = 'Your arror makes a <b>mess</b> of the enemy ';
-    charm: Object;
+    charm: any;
 
-    constructor(private http: HttpClient) { }
+    constructor(private apiService: ApiService) { }
 
     ngOnInit() {
-        this.readCharm();
+        this.loadCharm();
     }
 
-    readCharm() {
-        this.http.get('http://localhost:65069/api/Charms/Charms/1').subscribe(
-            (response: Response) => { this.charm = response.json(); });
+    loadCharm() {
+        this.apiService.getCharm(1).subscribe(response => {
+            console.log(response);
+            this.charm = response;
+        });
     }
 }

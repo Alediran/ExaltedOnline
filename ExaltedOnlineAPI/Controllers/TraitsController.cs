@@ -8,7 +8,7 @@ using ExaltedOnlineAPI.Models;
 namespace ExaltedOnlineAPI.Controllers
 {
 #pragma warning disable CS1591
-    [Route("api/Traits")]
+    [Route("api")]
     [ApiController]
     public class TraitsController : ControllerBase
     {
