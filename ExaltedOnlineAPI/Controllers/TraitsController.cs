@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ExaltedOnlineAPI.Models;
+using Microsoft.Extensions.Localization;
 
 namespace ExaltedOnlineAPI.Controllers
 {
@@ -14,11 +15,13 @@ namespace ExaltedOnlineAPI.Controllers
     {
         protected readonly ILogger Logger;
         protected readonly ExaltedDBContext DbContext;
+        protected readonly IStringLocalizer Localizer;
 
-        public TraitsController(ILogger<TraitsController> logger, ExaltedDBContext dbContext)
+        public TraitsController(ILogger<TraitsController> logger, ExaltedDBContext dbContext, IStringLocalizer<Resources.Resources> localizer)
         {
             Logger = logger;
             DbContext = dbContext;
+            Localizer = localizer;
         }
 
 
@@ -40,7 +43,7 @@ namespace ExaltedOnlineAPI.Controllers
         [ProducesResponseType(500)]
         public async Task<IActionResult> GetTraitsAsync(int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
         {
-            Logger?.LogDebug("'{0}' has been invoked", nameof(GetTraitsAsync));
+            Logger?.LogDebug(Localizer["ProcessInvoked"], nameof(GetTraitsAsync));
 
             var response = new PagedResponse<Traits>();
 

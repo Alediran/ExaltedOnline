@@ -17,6 +17,8 @@ using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Localization;
+using System.Globalization;
 
 namespace ExaltedOnlineAPI
 {
@@ -46,7 +48,7 @@ namespace ExaltedOnlineAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             // Set up dependency injection for controller's logger
             SetInjectionControllerLogger(ref services);
 
@@ -56,7 +58,7 @@ namespace ExaltedOnlineAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExaltedOnline API", Version = "v1" });
             });
 
-            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(ConfigurationExtensions.GetConnectionString(Configuration, "ExaltedDB")));
+            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(Configuration["connectionString"].ToString()));
 
             services.Configure<IISServerOptions>(options =>
             {
@@ -68,12 +70,32 @@ namespace ExaltedOnlineAPI
                 options.ForwardClientCertificate = false;
             });
 
+            services.AddLocalization(o => o.ResourcesPath = "Resources");
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                var supportedCultures = new[]
+                {
+                    new CultureInfo("en-US")
+                };
+
+                options.DefaultRequestCulture = new RequestCulture("en-US", "en-US");
+
+                // You must explicitly state which cultures your application supports.
+                // These are the cultures the app supports for formatting 
+                // numbers, dates, etc.
+                options.SupportedCultures = supportedCultures;
+
+                // These are the cultures the app supports for UI strings, 
+                // i.e. we have localized resources for.
+                options.SupportedUICultures = supportedCultures;
+            });
+
         }
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -95,7 +117,6 @@ namespace ExaltedOnlineAPI
             });
 
         }
-
         private void SetInjectionControllerLogger(ref IServiceCollection services)
         {
             services.AddScoped<ILogger, Logger<CharmsController>>();

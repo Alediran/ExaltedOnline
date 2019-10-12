@@ -11,7 +11,7 @@ import { Charm, CharmAdapter } from './charm.model';
 
 export class ApiService {    
 
-    baseUrl: String = 'http://localhost:8082/api';
+    baseUrl: String = 'https://exaltedapi.azurewebsites.net/api';
 
     constructor(private httpClient: HttpClient, private adapter: CharmAdapter) { }
 
