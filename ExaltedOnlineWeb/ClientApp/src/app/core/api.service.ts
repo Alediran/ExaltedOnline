@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
-import { Charm, CharmAdapter } from './charm.model';
+import { CharmModel, CharmModelAdapter, Charm, CharmAdapter } from './charm.model';
 
 
 @Injectable({
@@ -13,26 +13,22 @@ export class ApiService {
 
     baseUrl: String = 'https://exaltedapi.azurewebsites.net/api';
 
-    constructor(private httpClient: HttpClient, private adapter: CharmAdapter) { }
+    constructor(private httpClient: HttpClient) { }
 
     httpOptions = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json'})
     }
 
-    public getCharm(id: Number): Observable<Charm> {
-        const url = `${this.baseUrl}/Charms/`;
+    public getCharm<CharmModel>(id: Number) {
+        const url = `${this.baseUrl}/Charms/`;       
 
-        return this.httpClient.get(url + id).pipe(
-            map((data: any) => data.map(item => this.adapter.adapt(item))),
-        );
+        return this.httpClient.get<CharmModel>(url + id);
     }
 
-    public getCharms(): Observable<Charm[]> {
+    public getCharms<CharmModel>() {
         const url = `${this.baseUrl}/Charms`;
 
-        return this.httpClient.get(url).pipe(
-            map((data: any[]) => data.map(item => this.adapter.adapt(item))),
-        );
+        return this.httpClient.get<CharmModel>(url);
     }
 
     // Handle API errors

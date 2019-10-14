@@ -1,5 +1,14 @@
-<div class="grid-container">
-  <div class="grid-header">Name: {{charm.Name}}</div>
-  <div class="grid-item">Cost: {{Cost}}; Mins: {{Mins}}</div>
-  <div class="grid-item">Description: {{charm.Description}}</div>
+<div class="frame" *ngIf="charms?.length < 1">
+  Name: {{ charms.name }}
+</div>
+
+<div class="frame" *ngIf="charms?.length > 1">
+  <ul>
+    <li *ngFor="let charm of charms">
+      <p>
+        {{ charm.name }} • {{ charm.description }} • Created
+        {{ charm.essence }}
+      </p>
+    </li>
+  </ul>
 </div>
