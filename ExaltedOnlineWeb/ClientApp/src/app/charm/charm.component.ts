@@ -21,7 +21,7 @@ export class CharmComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadCharms();
+        this.loadCharm();
 
     }
 
