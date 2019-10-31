@@ -1,1 +1,8 @@
 <p>character-sheet works!</p>
+
+<mat-form-field class="example-form-field">
+  <input matInput type="text" placeholder="Name" [(ngModel)]="nameValue">
+  <button mat-button *ngIf="nameValue" matSuffix mat-icon-button aria-label="Clear" (click)="nameValue=''">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
