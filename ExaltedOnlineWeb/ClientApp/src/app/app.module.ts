@@ -47,11 +47,14 @@ import { CircularCheckComponent } from './circular-check/circular-check.componen
 import { TraitComponent } from './trait/trait.component';
 import { CharmComponent } from './charm/charm.component';
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
+import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
 
 
 
 
 const RoutesApp: Routes = [
+    { path: '', component: MainComponent },
     { path: 'charm', component: CharmComponent },
     { path: 'trait', component: TraitComponent },
     { path: 'character-sheet', component: CharacterSheetComponent }
@@ -66,6 +69,8 @@ const RoutesApp: Routes = [
         TraitComponent,
         CharmComponent,
         CharacterSheetComponent,
+        LoginComponent,
+        MainComponent,
         
 
   ],
@@ -113,6 +118,7 @@ const RoutesApp: Routes = [
         MatTreeModule
   ],
     providers: [ApiService],
-    bootstrap: [AppComponent]
+    bootstrap: [AppComponent],
+    entryComponents: [LoginComponent]
 })
 export class AppModule { }
