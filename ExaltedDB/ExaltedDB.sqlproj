@@ -91,6 +91,7 @@
     <Build Include="Tables\CharacterIntimacies.sql" />
     <Build Include="Tables\IntimaciesIntensity.sql" />
     <Build Include="Tables\Games.sql" />
+    <Build Include="Tables\Users.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ExaltedDB.refactorlog" />

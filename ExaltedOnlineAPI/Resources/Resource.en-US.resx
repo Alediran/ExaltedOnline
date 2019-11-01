@@ -120,6 +120,12 @@
   <data name="CharmPaging" xml:space="preserve">
     <value>"Page {0} of {1}, Total of charms: {2}."</value>
   </data>
+  <data name="CharmRetrieveSuccessfull" xml:space="preserve">
+    <value>The charms have been retrieved successfully.</value>
+  </data>
+  <data name="HashFormatIncorrect" xml:space="preserve">
+    <value>Unexpected hash format. Should be formatted as '{iterations}.{salt}.{hash}'</value>
+  </data>
   <data name="InvocationError" xml:space="preserve">
     <value>There was an error on '{0}' invocation: {1}</value>
   </data>

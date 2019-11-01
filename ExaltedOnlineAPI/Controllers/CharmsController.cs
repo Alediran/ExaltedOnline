@@ -50,14 +50,14 @@ namespace ExaltedOnlineAPI.Controllers
                 response.PageNumber = pageNumber;
 
                 // Get the total rows
-                response.ItemsCount = await query.CountAsync();
+                response.ItemsCount = await query.CountAsync().ConfigureAwait(true);
 
                 // Get the specific page from database
-                response.Model = await query.Paging(pageSize, pageNumber).ToListAsync();
+                response.Model = await query.Paging(pageSize, pageNumber).ToListAsync().ConfigureAwait(true);
 
                 response.Message = string.Format(Localizer["CharmPaging"], pageNumber.ToString(), response.PageCount.ToString(), response.ItemsCount.ToString());
 
-                Logger?.LogInformation("The charms have been retrieved successfully.");
+                Logger?.LogInformation(Localizer["CharmRetrieveSuccessfull"]);
             }
             catch (Exception ex)
             {
