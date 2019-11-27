@@ -41,7 +41,7 @@ namespace ExaltedOnlineAPI.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ExaltedDB;Integrated Security=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=ExaltedDB;Trusted_Connection=True;");
             }
         }
 
@@ -61,7 +61,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharacterAttributes>(entity =>
             {
                 entity.HasKey(e => new { e.CharacterId, e.AttributeId })
-                    .HasName("PK__Characte__C9635B3E3E756186");
+                    .HasName("PK__Characte__C9635B3E696739CC");
 
                 entity.Property(e => e.IsFavored).HasDefaultValueSql("((0))");
 
@@ -83,7 +83,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharacterCharms>(entity =>
             {
                 entity.HasKey(e => new { e.CharacterId, e.CharmId })
-                    .HasName("PK__Characte__1B6CA57AC3DA9F38");
+                    .HasName("PK__Characte__1B6CA57AFA889AF7");
 
                 entity.HasOne(d => d.Character)
                     .WithMany(p => p.CharacterCharms)
@@ -157,7 +157,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmKeywords>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.KeywordId })
-                    .HasName("PK__CharmKey__E20ADEF5F6FEAE81");
+                    .HasName("PK__CharmKey__E20ADEF554E4F0E6");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmKeywords)
@@ -175,7 +175,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmPrerequisites>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.CharmPrerequisiteId })
-                    .HasName("PK__CharmPre__F5505C0DC1B24C50");
+                    .HasName("PK__CharmPre__F5505C0D6128F780");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmPrerequisitesCharm)
@@ -193,7 +193,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmTraits>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.TraitId })
-                    .HasName("PK__CharmTra__09A0D80B491E71EF");
+                    .HasName("PK__CharmTra__09A0D80B33940E1C");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmTraits)
@@ -259,11 +259,6 @@ namespace ExaltedOnlineAPI.Models
                     .HasForeignKey(d => d.TraitTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Traits_TraitTypes");
-            });
-
-            modelBuilder.Entity<Users>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
             modelBuilder.Entity<Weapons>(entity =>

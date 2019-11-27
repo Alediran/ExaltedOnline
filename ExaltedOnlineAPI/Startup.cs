@@ -20,7 +20,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
-
+using Microsoft.AspNetCore.Server.IISIntegration;
 
 namespace ExaltedOnlineAPI
 {
@@ -94,19 +94,32 @@ namespace ExaltedOnlineAPI
 
             services.AddScoped<IAuthRepository, AuthRepository>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.WithOrigins("https://localhost:44355", "http://localhost:60325")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader()
+                                .AllowCredentials();
+                });
+            });
+
+            services.AddAuthentication(IISDefaults.AuthenticationScheme);
+
         }
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         /// </summary>
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseRouting();
+            
             app.UseAuthorization();
 
             app.UseSwagger();
@@ -115,13 +128,20 @@ namespace ExaltedOnlineAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExaltedOnline API V1");
             });
 
+            app.UseRouting();
+
+            app.UseCors("CorsPolicy");
+
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            
 
         }
 
         private static void SetInjectionControllerLogger(ref IServiceCollection services)
         {
             services.AddScoped<ILogger, Logger<CharmsController>>();
+            services.AddScoped<ILogger, Logger<UsersController>>();
         }
 
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +44,7 @@ namespace ExaltedOnlineAPI.Models
         /// <summary>
         /// Non-persisted Property to pass between API and Client
         /// </summary>
+        [NotMapped]
         public string Password { get; set; }
 
         /// <summary>

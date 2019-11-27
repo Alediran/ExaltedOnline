@@ -60,7 +60,7 @@ namespace ExaltedOnlineAPI.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> Register([FromBody]Users request, String Password)
+        public async Task<IActionResult> Register([FromBody]Users request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -68,9 +68,15 @@ namespace ExaltedOnlineAPI.Controllers
             if (await authRepo.UserExists(request.UserName).ConfigureAwait(true))
                 return BadRequest("Username is already taken");
 
-            var userCreated = await authRepo.Register(request, Password).ConfigureAwait(true);
-
-            return StatusCode(201);
+            try
+            { 
+                var userCreated = await authRepo.Register(request, request.Password).ConfigureAwait(true);
+                return StatusCode(201, userCreated);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }            
         }
     }
 }

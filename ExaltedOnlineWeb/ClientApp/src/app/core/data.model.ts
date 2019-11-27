@@ -83,11 +83,12 @@ export class CharmAdapter implements Adapter<Charm>{
 
 export class User {
 
+    public password: string;
     public id?: number;
-    public UserName: string;
-    public PasswordHash: string;
-    public PasswordSalt: string;
-    public UserRole: string;
-    public SignatureFirst: string;
+    public userName: string;
+    public passwordHash: string;
+    public passwordSalt: string;
+    public userRole: number;
+    public signatureFirst: string;
 }
 

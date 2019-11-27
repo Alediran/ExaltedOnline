@@ -66,8 +66,13 @@ namespace ExaltedOnlineAPI.Interfaces
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            await DbContext.AddAsync(user);
-            await DbContext.SaveChangesAsync().ConfigureAwait(true);
+            try
+            {
+                await DbContext.AddAsync(user).ConfigureAwait(true);
+                await DbContext.SaveChangesAsync().ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            { }
 
             return user;
         }
