@@ -4,16 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from './login/login.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
-    title = 'ExaltedOnlineWeb';   
+    title = 'Exalted Online';
     userName: String = '';
 
     mobileQuery: MediaQueryList;
-    
+
     private _mobileQueryListener: () => void;
 
     constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher, public dialog: MatDialog) {
@@ -26,11 +26,12 @@ export class AppComponent implements OnDestroy {
         this.mobileQuery.removeListener(this._mobileQueryListener);
     }
 
+
     openLoginDialog(): void {
         const dialogRef = this.dialog.open(LoginComponent, {
-            width: '250px',
-            height: '250px',
-            data: { userName: this.userName }
+            width: '400px',
+            height: '400px'//,
+           // data: { userName: this.userName }
         });
 
         dialogRef.afterClosed().subscribe(result => {

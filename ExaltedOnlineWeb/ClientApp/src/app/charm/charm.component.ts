@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ApiService } from '../core/api.service';
-import { Charm, CharmModel } from '../core/charm.model';
+import { Charm, CharmModel } from '../core/data.model';
 
 @Component({
     selector: 'app-charm',

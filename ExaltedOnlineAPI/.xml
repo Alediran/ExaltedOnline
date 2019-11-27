@@ -78,7 +78,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:ExaltedOnlineAPI.Controllers.UsersController.GetUsersAsync(System.Int32)">
+        <member name="M:ExaltedOnlineAPI.Controllers.UserController.GetUsersAsync(System.Int32)">
             <summary>
             
             </summary>

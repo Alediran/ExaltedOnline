@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExaltedOnlineAPI.Models
 {
     public partial class Charms
     {
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public Charms()
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             CharacterCharms = new HashSet<CharacterCharms>();
             CharmCosts = new HashSet<CharmCosts>();
@@ -17,57 +17,36 @@ namespace ExaltedOnlineAPI.Models
             CharmTraits = new HashSet<CharmTraits>();
         }
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [Key]
         public int Id { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public int Essence { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public int TreeTypeId { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public int TypeId { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public int DurationId { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public string Description { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public bool? IsCustomCharm { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
         public int? GameId { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [ForeignKey(nameof(DurationId))]
+        [InverseProperty(nameof(CharmDurationTypes.Charms))]
         public virtual CharmDurationTypes Duration { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [ForeignKey(nameof(TypeId))]
+        [InverseProperty(nameof(CharmTypes.Charms))]
         public virtual CharmTypes Type { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [InverseProperty("Charm")]
         public virtual ICollection<CharacterCharms> CharacterCharms { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [InverseProperty("Charm")]
         public virtual ICollection<CharmCosts> CharmCosts { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [InverseProperty("Charm")]
         public virtual ICollection<CharmKeywords> CharmKeywords { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [InverseProperty(nameof(CharmPrerequisites.Charm))]
         public virtual ICollection<CharmPrerequisites> CharmPrerequisitesCharm { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [InverseProperty(nameof(CharmPrerequisites.CharmPrerequisite))]
         public virtual ICollection<CharmPrerequisites> CharmPrerequisitesCharmPrerequisite { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        [InverseProperty("Charm")]
         public virtual ICollection<CharmTraits> CharmTraits { get; set; }
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
     }
 }

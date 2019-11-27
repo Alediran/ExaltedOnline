@@ -81,3 +81,13 @@ export class CharmAdapter implements Adapter<Charm>{
     };
 }
 
+export class User {
+
+    public id?: number;
+    public UserName: string;
+    public PasswordHash: string;
+    public PasswordSalt: string;
+    public UserRole: string;
+    public SignatureFirst: string;
+}
+

@@ -49,6 +49,7 @@ import { CharmComponent } from './charm/charm.component';
 import { CharacterSheetComponent } from './character-sheet/character-sheet.component';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
+import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 
 
 
@@ -70,9 +71,7 @@ const RoutesApp: Routes = [
         CharmComponent,
         CharacterSheetComponent,
         LoginComponent,
-        MainComponent,
-        
-
+        MainComponent
   ],
     imports: [
         RouterModule.forRoot(RoutesApp),
@@ -115,7 +114,8 @@ const RoutesApp: Routes = [
         MatTabsModule,
         MatToolbarModule,
         MatTooltipModule,
-        MatTreeModule
+        MatTreeModule,
+        MatPasswordStrengthModule
   ],
     providers: [ApiService],
     bootstrap: [AppComponent],

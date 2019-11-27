@@ -2,6 +2,10 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost:8082",
+      "sslPort": 0
+    },
     "iisExpress": {
       "applicationUrl": "http://localhost:65069",
       "sslPort": 0
@@ -18,12 +22,14 @@
       }
     },
     "ExaltedOnlineAPI": {
-      "commandName": "Project",
+      "commandName": "IIS",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
+      "ancmHostingModel": "InProcess",
+      "nativeDebugging": true,
       "applicationUrl": "http://localhost:5000"
     }
   }

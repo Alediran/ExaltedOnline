@@ -13,9 +13,9 @@ namespace ExaltedOnlineAPI.Controllers
     [ApiController]
     public class TraitsController : ControllerBase
     {
-        protected readonly ILogger Logger;
-        protected readonly ExaltedDBContext DbContext;
-        protected readonly IStringLocalizer Localizer;
+        private readonly ILogger Logger;
+        private readonly ExaltedDBContext DbContext;
+        private readonly IStringLocalizer Localizer;
 
         public TraitsController(ILogger<TraitsController> logger, ExaltedDBContext dbContext, IStringLocalizer<Resources.Resources> localizer)
         {
@@ -32,16 +32,11 @@ namespace ExaltedOnlineAPI.Controllers
         /// </summary>
         /// <param name="pageSize"></param>
         /// <param name="pageNumber"></param>
-        /// <param name="lastEditedBy"></param>
-        /// <param name="colorID"></param>
-        /// <param name="outerPackageID"></param>
-        /// <param name="supplierID"></param>
-        /// <param name="unitPackageID"></param>
         /// <returns></returns>
         [HttpGet("Traits")]
         [ProducesResponseType(200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetTraitsAsync(int pageSize = 10, int pageNumber = 1, int? lastEditedBy = null, int? colorID = null, int? outerPackageID = null, int? supplierID = null, int? unitPackageID = null)
+        public async Task<IActionResult> GetTraitsAsync(int pageSize = 10, int pageNumber = 1)
         {
             Logger?.LogDebug(Localizer["ProcessInvoked"], nameof(GetTraitsAsync));
 

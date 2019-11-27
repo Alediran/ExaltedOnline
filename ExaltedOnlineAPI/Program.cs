@@ -37,11 +37,11 @@ namespace ExaltedOnlineAPI
             {
                 var builtConfig = config.Build();
 
-                config.AddAzureKeyVault(
+              /*  config.AddAzureKeyVault(
                     $"https://{builtConfig["KeyVault:Vault"]}.vault.azure.net/",
                     builtConfig["KeyVault:ClientId"],
                     builtConfig["KeyVault:ClientSecret"],
-                    new DefaultKeyVaultSecretManager());
+                    new DefaultKeyVaultSecretManager());*/
             })
             .ConfigureWebHostDefaults(webBuilder => 
             { 

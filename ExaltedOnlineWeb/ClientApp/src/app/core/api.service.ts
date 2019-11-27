@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
-import { CharmModel, CharmModelAdapter, Charm, CharmAdapter } from './charm.model';
+import { CharmModel, CharmModelAdapter, Charm, CharmAdapter, User } from './data.model';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import { CharmModel, CharmModelAdapter, Charm, CharmAdapter } from './charm.mode
 
 export class ApiService {    
 
-    baseUrl: String = 'https://exaltedapi.azurewebsites.net/api';
+    baseUrl: String = 'https://localhost:8082/api';  //'https://exaltedapi.azurewebsites.net/api';
 
     constructor(private httpClient: HttpClient) { }
 
@@ -29,6 +29,13 @@ export class ApiService {
         const url = `${this.baseUrl}/Charms`;
 
         return this.httpClient.get<CharmModel>(url);
+    }
+
+    public createUser(user: User): Observable<User> {
+        const url = `${this.baseUrl}/Users/Register`;
+
+        return this.httpClient.post<User>(url, user, this.httpOptions).pipe(catchError(this.handleError));
+
     }
 
     // Handle API errors

@@ -80,10 +80,10 @@ namespace ExaltedOnlineAPI.Models
         }
 
         public static async Task<Traits> GetTraitsAsync(this ExaltedDBContext dbContext, Traits entity)
-            => await dbContext.Traits.FirstOrDefaultAsync(item => item.Id == entity.Id);
+            => await dbContext.Traits.FirstOrDefaultAsync(item => item.Id == entity.Id).ConfigureAwait(true);
 
         public static async Task<Traits> GetTraitsByTraitsNameAsync(this ExaltedDBContext dbContext, Traits entity)
-            => await dbContext.Traits.FirstOrDefaultAsync(item => item.Name == entity.Name);
+            => await dbContext.Traits.FirstOrDefaultAsync(item => item.Name == entity.Name).ConfigureAwait(true);
 
         public static Traits ToEntity(this Traits request)
             => new Traits
@@ -92,6 +92,35 @@ namespace ExaltedOnlineAPI.Models
                 Name = request.Name,
                 TraitTypeId = request.TraitTypeId,
                 Description = request.Description
+            };
+        #endregion
+
+        #region "Users"
+        public static IQueryable<Users> GetUsers(this ExaltedDBContext dbContext, int pageSize = 10, int pageNumber = 1, int? Id = null, string UserName = null, string Password = null)
+        {
+            // Get query from DbSet
+            var query = dbContext.Users.AsQueryable();
+
+            // Filter by: 'Id'
+            if (Id.HasValue)
+                query = query.Where(item => item.Id == Id);
+
+            // Filter by: 'Name'
+            if (!string.IsNullOrEmpty(UserName))
+                query = query.Where(item => item.UserName == UserName);
+
+            return query;
+        }
+
+        public static async Task<Users> GetUsersAsync(this ExaltedDBContext dbContext, Users entity)
+            => await dbContext.Users.FirstOrDefaultAsync(item => item.Id == entity.Id).ConfigureAwait(true);
+
+        public static Users ToEntity(this Users request)
+            => new Users
+            {
+                Id = request.Id,
+                UserName = request.UserName,
+                SignatureFirst = request.SignatureFirst
             };
         #endregion
 

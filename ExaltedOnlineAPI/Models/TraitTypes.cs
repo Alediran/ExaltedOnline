@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExaltedOnlineAPI.Models
 {
@@ -10,9 +12,13 @@ namespace ExaltedOnlineAPI.Models
             Traits = new HashSet<Traits>();
         }
 
+        [Key]
         public int Id { get; set; }
+        [Required]
+        [StringLength(50)]
         public string Name { get; set; }
 
+        [InverseProperty("TraitType")]
         public virtual ICollection<Traits> Traits { get; set; }
     }
 }

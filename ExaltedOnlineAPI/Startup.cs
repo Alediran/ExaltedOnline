@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using ExaltedOnlineAPI.Controllers;
+using ExaltedOnlineAPI.Interfaces;
 using ExaltedOnlineAPI.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,6 +20,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
+
 
 namespace ExaltedOnlineAPI
 {
@@ -58,7 +60,7 @@ namespace ExaltedOnlineAPI
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ExaltedOnline API", Version = "v1" });
             });
 
-            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(Configuration["connectionString"].ToString()));
+            services.AddDbContext<ExaltedDBContext>(op => op.UseSqlServer(Configuration.GetConnectionString("ExaltedDB")));
 
             services.Configure<IISServerOptions>(options =>
             {
@@ -90,6 +92,8 @@ namespace ExaltedOnlineAPI
                 options.SupportedUICultures = supportedCultures;
             });
 
+            services.AddScoped<IAuthRepository, AuthRepository>();
+
         }
 
         /// <summary>
@@ -111,13 +115,11 @@ namespace ExaltedOnlineAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "ExaltedOnline API V1");
             });
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 
         }
-        private void SetInjectionControllerLogger(ref IServiceCollection services)
+
+        private static void SetInjectionControllerLogger(ref IServiceCollection services)
         {
             services.AddScoped<ILogger, Logger<CharmsController>>();
         }

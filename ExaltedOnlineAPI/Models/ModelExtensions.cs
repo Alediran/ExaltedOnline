@@ -34,4 +34,31 @@ namespace ExaltedOnlineAPI.Models
             Id = id;
         }
     }
+
+    /// <summary>
+    /// Main object for the Users table
+    /// </summary>
+    public partial class Users
+    {
+        /// <summary>
+        /// Non-persisted Property to pass between API and Client
+        /// </summary>
+        public string Password { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Users()
+        {
+
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        public Users(int id) : this()
+        {
+            Id = id;
+        }
+    }
 }

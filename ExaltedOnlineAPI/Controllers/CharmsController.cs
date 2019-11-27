@@ -13,9 +13,9 @@ namespace ExaltedOnlineAPI.Controllers
     [ApiController]
     public class CharmsController : ControllerBase
     {
-        protected readonly ILogger Logger;
-        protected readonly ExaltedDBContext DbContext;
-        protected readonly IStringLocalizer Localizer;
+        private readonly ILogger Logger;
+        private readonly ExaltedDBContext DbContext;
+        private readonly IStringLocalizer Localizer;
 
         public CharmsController(ILogger<CharmsController> logger, ExaltedDBContext dbContext, IStringLocalizer<Resources.Resources> localizer)
         {
@@ -26,7 +26,7 @@ namespace ExaltedOnlineAPI.Controllers
 #pragma warning restore CS1591
 
         /// <summary>
-        /// 
+        /// Return a list of Paged Charms
         /// </summary>
         /// <param name="pageSize"></param>
         /// <param name="pageNumber"></param>

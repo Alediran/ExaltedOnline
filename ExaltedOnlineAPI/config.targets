@@ -1,0 +1,28 @@
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <!--These UseMsDeployExe and AfterAddIisSettingAndFileContentsToSourceManifest are relevant to the msdeploy, perhaps otherwise in the pubxml files-->
+    <PropertyGroup>
+        <UseMsDeployExe>true</UseMsDeployExe>
+        <AfterAddIisSettingAndFileContentsToSourceManifest>OnAfterAddIisSettingAndFileContentsToSourceManifest</AfterAddIisSettingAndFileContentsToSourceManifest>
+    </PropertyGroup>    
+
+    <!-- We do not want to OVERWRITE the web.config file if it is present at the destination -->
+    <!-- We also don't want to delete it so we can't just exclude it -->
+    <Target Name="ExcludeWebConfig">
+        <Message Text="Excluding Web Config From Publish.  Be sure to manually deploy any new settings." Importance="high" />
+        <ItemGroup>
+            <MsDeploySkipRules Include="SkipWebConfigDelete">
+                <SkipAction>Delete</SkipAction>
+                <ObjectName>filePath</ObjectName>
+                <AbsolutePath>$(_DestinationContentPath)\\Web.config</AbsolutePath>
+                <Apply>Destination</Apply>
+            </MsDeploySkipRules>
+            <MsDeploySkipRules Include="SkipWebConfigUpdate">
+                <SkipAction>Update</SkipAction>
+                <ObjectName>filePath</ObjectName>
+                <AbsolutePath>$(_DestinationContentPath)\\Web.config</AbsolutePath>
+                <Apply>Destination</Apply>
+            </MsDeploySkipRules>
+        </ItemGroup>
+    </Target>
+    <Target Name="OnAfterAddIisSettingAndFileContentsToSourceManifest" DependsOnTargets="ExcludeWebConfig" />
+</Project>
