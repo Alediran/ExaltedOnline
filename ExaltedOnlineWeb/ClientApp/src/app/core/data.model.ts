@@ -18,6 +18,15 @@ export class CharmModel {
     ) {}
 }
 
+export class BoolModel {
+    constructor(
+        public message: String,
+        public didError: Boolean,
+        public errorMessage: String,
+        public model: Boolean
+    ) {}
+}
+
 export class Charm {
     constructor(
         public characterCharms: any[],
@@ -90,5 +99,14 @@ export class User {
     public passwordSalt: string;
     public userRole: number;
     public signatureFirst: string;
+
+    constructor() {
+        this.id = 0;
+        this.passwordSalt = '';
+        this.passwordHash = '';
+        this.userRole = 1;
+        this.signatureFirst = '';
+
+    }
 }
 

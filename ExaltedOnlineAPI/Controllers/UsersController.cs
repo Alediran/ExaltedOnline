@@ -55,6 +55,32 @@ namespace ExaltedOnlineAPI.Controllers
             return response.ToHttpResponse();
         }
 
+        [HttpGet("Users/Exists/{name}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> UserExists(string name)
+        {
+            var response = new SingleResponse<Boolean>();
+
+            try
+            { 
+            if (await authRepo.UserExists(name).ConfigureAwait(true))
+                response.Model = true;
+            else
+                response.Model = false;
+            }
+            catch(Exception ex)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(UserExists), ex);
+            }
+            return response.ToHttpResponse();
+        }
+
+
         [HttpPost("Users/Register")]
         [ProducesResponseType(200)]
         [ProducesResponseType(201)]

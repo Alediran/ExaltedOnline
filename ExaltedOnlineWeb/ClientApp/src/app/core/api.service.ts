@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
-import { CharmModelAdapter, Charm, CharmAdapter, User } from './data.model';
+import { User, BoolModel } from './data.model';
 
 
 @Injectable({
@@ -19,6 +19,7 @@ export class ApiService {
         headers: new HttpHeaders({ 'Content-Type': 'application/json'})
     }
 
+    //Charm Methods
     public getCharm<CharmModel>(id: Number) {
         const url = `${this.baseUrl}/Charms/`;       
 
@@ -29,6 +30,13 @@ export class ApiService {
         const url = `${this.baseUrl}/Charms`;
 
         return this.httpClient.get<CharmModel>(url);
+    }
+
+    //UserMethods
+    public userExists<BoolModel>(userName: string): Observable<BoolModel> {
+        const url = `${this.baseUrl}/Users/Exists`;
+
+        return this.httpClient.get<BoolModel>(url + userName).pipe(catchError(this.handleError));
     }
 
     public createUser(user: User): Observable<User> {

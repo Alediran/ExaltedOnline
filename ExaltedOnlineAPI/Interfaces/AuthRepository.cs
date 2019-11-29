@@ -72,7 +72,9 @@ namespace ExaltedOnlineAPI.Interfaces
                 await DbContext.SaveChangesAsync().ConfigureAwait(true);
             }
             catch (Exception ex)
-            { }
+            {
+                throw;
+            }
 
             return user;
         }

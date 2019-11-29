@@ -32,14 +32,5 @@ export class CharmComponent implements OnInit {
             console.log(this.charmModel);
             console.log(this.charms);
         });       
-    }
-
-    loadCharms() {
-        this.apiService.getCharms().subscribe((data: CharmModel) => {
-            this.charmModel = data; console.log(data);
-            this.charms = this.charmModel.model;
-            console.log(this.charmModel);
-            console.log(this.charms);
-        })
-    }
+    }    
 }

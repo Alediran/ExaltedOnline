@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { NgxPrettyCheckboxModule } from 'ngx-pretty-checkbox';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -115,7 +115,8 @@ const RoutesApp: Routes = [
         MatToolbarModule,
         MatTooltipModule,
         MatTreeModule,
-        MatPasswordStrengthModule
+        MatPasswordStrengthModule,
+        ReactiveFormsModule
   ],
     providers: [ApiService],
     bootstrap: [AppComponent],

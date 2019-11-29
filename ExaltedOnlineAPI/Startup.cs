@@ -49,6 +49,18 @@ namespace ExaltedOnlineAPI
         /// <param name="services"></param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyOrigin()//.WithOrigins("http://localhost:60325")
+                                .AllowAnyMethod()
+                                .AllowAnyHeader();
+                    //.AllowCredentials();
+                });
+            });
+
             services.AddControllers();
 
             // Set up dependency injection for controller's logger
@@ -94,17 +106,7 @@ namespace ExaltedOnlineAPI
 
             services.AddScoped<IAuthRepository, AuthRepository>();
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                builder =>
-                {
-                    builder.WithOrigins("https://localhost:44355", "http://localhost:60325")
-                                .AllowAnyMethod()
-                                .AllowAnyHeader()
-                                .AllowCredentials();
-                });
-            });
+            
 
             services.AddAuthentication(IISDefaults.AuthenticationScheme);
 
@@ -115,6 +117,8 @@ namespace ExaltedOnlineAPI
         /// </summary>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -130,7 +134,7 @@ namespace ExaltedOnlineAPI
 
             app.UseRouting();
 
-            app.UseCors("CorsPolicy");
+            
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
 

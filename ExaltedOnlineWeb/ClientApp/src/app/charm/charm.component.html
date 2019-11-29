@@ -1,13 +1,3 @@
-<div class="frame" *ngIf="charms?.length > 1; else single">
-  <ul>
-    <li *ngFor="let charm of charms">
-
-      {{ charm.name }} • {{ charm.description }} • Created
-      {{ charm.essence }}
-
-    </li>
-  </ul>
-</div>
 <ng-template #single>
   <div>Name: {{ charms.name }}</div>
   <div [innerHTML]="charms.description"></div>
