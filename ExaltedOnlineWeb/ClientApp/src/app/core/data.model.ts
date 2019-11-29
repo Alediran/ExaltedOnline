@@ -1,30 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Adapter } from './adapter';
 
-@Injectable({
-    providedIn: 'root'
-})
-
-export class CharmModel {
-    constructor(
-        public message: String,
-        public didError: Boolean,
-        public errorMessage: String,
-        public model: Charm[],
-        public pageSize: Number,
-        public pageNumber: Number,
-        public itemsCount: Number,
-        public pageCount: Number
-    ) {}
+export interface CharmModel {
+    message: String;
+    didError: Boolean;
+    errorMessage: String;
+    model: Charm[];
+    pageSize: Number;
+    pageNumber: Number;
+    itemsCount: Number;
+    pageCount: Number;
 }
 
-export class BoolModel {
-    constructor(
-        public message: String,
-        public didError: Boolean,
-        public errorMessage: String,
-        public model: Boolean
-    ) {}
+export interface BoolModel {    
+    message: String;
+    didError: Boolean;
+    errorMessage: String;
+    model: Boolean;
 }
 
 export class Charm {
@@ -49,21 +41,21 @@ export class Charm {
     ) {}
 }
 
-export class CharmModelAdapter implements Adapter<CharmModel>{
+//export class CharmModelAdapter implements Adapter<CharmModel>{
 
-    adapt(item: any): CharmModel {
-        return new CharmModel(
-            item.message,
-            item.didError,
-            item.errorMessage,
-            item.model,
-            item.pageSize,
-            item.pageNumber,
-            item.itemsCount,
-            item.pageCount,
-        );
-    };
-}
+//    adapt(item: any): CharmModel {
+//        return new CharmModel(
+//            item.message,
+//            item.didError,
+//            item.errorMessage,
+//            item.model,
+//            item.pageSize,
+//            item.pageNumber,
+//            item.itemsCount,
+//            item.pageCount,
+//        );
+//    };
+//}
 
 export class CharmAdapter implements Adapter<Charm>{
 

@@ -33,10 +33,10 @@ export class ApiService {
     }
 
     //UserMethods
-    public userExists<BoolModel>(userName: string): Observable<BoolModel> {
+    public userExists(userName: string) {
         const url = `${this.baseUrl}/Users/Exists`;
 
-        return this.httpClient.get<BoolModel>(url + userName).pipe(catchError(this.handleError));
+        return this.httpClient.get(url + userName).pipe(catchError(this.handleError));
     }
 
     public createUser(user: User): Observable<User> {

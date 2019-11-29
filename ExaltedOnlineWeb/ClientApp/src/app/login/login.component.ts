@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
                     Validators.pattern('^[a-zA-Z]{3}[a-zA-Z0-9]*$'),
                 ]),
                 asyncValidators: Validators.compose([
-                    UserNameValidator.ifUserExists
+                    this.ifUserExists
                 ]),
                 updateOn: 'blur'
             }],
@@ -85,17 +85,16 @@ export class LoginComponent implements OnInit {
 
     onCancelClick(): void {
         this.dialogRef.close();
-    }    
+    }
 
     saveUser() {
         this.apiService.createUser(this.user).subscribe(resp => { return this.spresp.push(resp); });
     }
 
     ifUserExists(fc: AbstractControl): AsyncValidatorFn {
-        return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
-            return this.apiService.userExists(fc.value)
-                .map(res => {
+        return this.apiService.userExists(fc.value).pipe(
+                map(res => {
                     return res ? { ifUserExists: true } : null;
-                });
-        };
+                }));
+        }
 }
