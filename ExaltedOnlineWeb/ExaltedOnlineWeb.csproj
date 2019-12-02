@@ -37,8 +37,8 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\core\adapter.ts" />
-    <None Remove="ClientApp\src\app\core\custom.validators.ts" />
     <None Remove="ClientApp\src\app\core\data.model.ts" />
+    <None Remove="ClientApp\src\app\core\validation.service.ts" />
   </ItemGroup>
 
   <ItemGroup>

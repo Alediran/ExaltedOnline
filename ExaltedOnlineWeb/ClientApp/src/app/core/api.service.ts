@@ -34,7 +34,7 @@ export class ApiService {
 
     //UserMethods
     public userExists(userName: string) {
-        const url = `${this.baseUrl}/Users/Exists`;
+        const url = `${this.baseUrl}/Users/Exists/`;
 
         return this.httpClient.get(url + userName).pipe(catchError(this.handleError));
     }

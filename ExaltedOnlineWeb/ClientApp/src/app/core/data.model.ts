@@ -87,6 +87,7 @@ export class User {
     public password: string;
     public id?: number;
     public userName: string;
+    public email: string;
     public passwordHash: string;
     public passwordSalt: string;
     public userRole: number;

@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { NgxPrettyCheckboxModule } from 'ngx-pretty-checkbox';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, NG_ASYNC_VALIDATORS } from '@angular/forms';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatBadgeModule } from '@angular/material/badge';
@@ -50,6 +50,7 @@ import { CharacterSheetComponent } from './character-sheet/character-sheet.compo
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
+import { UserExists } from './core/validation.service';
 
 
 
@@ -117,8 +118,9 @@ const RoutesApp: Routes = [
         MatTreeModule,
         MatPasswordStrengthModule,
         ReactiveFormsModule
-  ],
-    providers: [ApiService],
+    ],
+    providers: [ApiService,
+                UserExists],
     bootstrap: [AppComponent],
     entryComponents: [LoginComponent]
 })

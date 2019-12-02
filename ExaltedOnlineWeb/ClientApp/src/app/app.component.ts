@@ -29,8 +29,8 @@ export class AppComponent implements OnDestroy {
 
     openLoginDialog(): void {
         const dialogRef = this.dialog.open(LoginComponent, {
-            width: '400px',
-            height: '400px'//,
+            width: '700px',
+            height: '500px'//,
            // data: { userName: this.userName }
         });
 

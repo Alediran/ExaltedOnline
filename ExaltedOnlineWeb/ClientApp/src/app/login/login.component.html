@@ -6,8 +6,8 @@
 
         <mat-form-field appearance="outline" style="width: 100%">
           <mat-label>User Name</mat-label>
-          <input matInput type="text" placeholder="User Name" formControlName="userName">
-          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="user.UserName=''">
+          <input matInput required type="text" placeholder="User Name" formControlName="userName">
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="user.userName=''">
             <mat-icon>close</mat-icon>
           </button>
           <mat-error *ngFor="let validation of account_validation_messages.username">
@@ -15,23 +15,52 @@
           </mat-error>
         </mat-form-field>
 
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>E-Mail</mat-label>
+          <input matInput required type="text" placeholder="User Name" formControlName="email">
+          <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="user.email=''">
+            <mat-icon>close</mat-icon>
+          </button>
+          <mat-error *ngFor="let validation of account_validation_messages.email">
+            <mat-error class="error-message" *ngIf="formValidation.get('email').hasError(validation.type) && (formValidation.get('email').dirty || formValidation.get('email').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+
 
         <mat-form-field appearance="outline" style="width: 100%" [color]="passwordComponent.color">
           <mat-label>Password</mat-label>
           <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
-          <input matInput #password  formControlName="password"
+          <input matInput #password formControlName="password"
                  [type]="toggle.type"
                  required
                  placeholder="Password">
           <mat-hint align="end" aria-live="polite">
             {{password.value.length}} / 25
           </mat-hint>
+          <mat-error *ngFor="let validation of account_validation_messages.password">
+            <mat-error class="error-message" *ngIf="formValidation.get('password').hasError(validation.type) && (formValidation.get('password').dirty || formValidation.get('password').touched)">{{validation.message}}</mat-error>
+          </mat-error>
         </mat-form-field>
 
         <mat-password-strength #passwordComponent
                                (onStrengthChanged)="onStrengthChanged($event)"
                                [password]="password.value">
         </mat-password-strength>
+
+        <mat-form-field appearance="outline" style="width: 100%" [color]="passwordComponent.color">
+          <mat-label>Confirm Password</mat-label>
+          <mat-pass-toggle-visibility #toggle2 matSuffix></mat-pass-toggle-visibility>
+          <input matInput formControlName="confirmPassword"
+                 [type]="toggle2.type"
+                 required
+                 placeholder="Confirm Password">
+          <mat-hint align="end" aria-live="polite">
+            {{password.value.length}} / 25
+          </mat-hint>
+          <mat-error *ngFor="let validation of account_validation_messages.confirm_password">
+            <mat-error class="error-message" *ngIf="formValidation.get('confirmPassword').hasError(validation.type) && (formValidation.get('confirmPassword').dirty || formValidation.get('confirmPassword').touched)">{{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
       </mat-card-content>
     </mat-card>
   </mat-dialog-content>
