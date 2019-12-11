@@ -86,6 +86,13 @@ namespace ExaltedOnlineAPI.Interfaces
             return false;
         }
 
+        public async Task<bool> MailExist(string email)
+        {
+            if (await DbContext.Users.AnyAsync(x => x.Email == email).ConfigureAwait(true))
+                return true;
+            return false;
+        }
+
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())

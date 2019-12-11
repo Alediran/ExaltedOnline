@@ -12,6 +12,7 @@ namespace ExaltedOnlineAPI.Interfaces
         Task<Users> Register(Users user, string password);
         Task<Users> Login(string username, string pasword);
         Task<bool> UserExists(string username);
+        Task<bool> MailExist(string email);
         Task<Users> GetUsersAsync(Users entity);
     }
 }

@@ -61,7 +61,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharacterAttributes>(entity =>
             {
                 entity.HasKey(e => new { e.CharacterId, e.AttributeId })
-                    .HasName("PK__Characte__C9635B3E696739CC");
+                    .HasName("PK__Characte__C9635B3E4641E3DD");
 
                 entity.Property(e => e.IsFavored).HasDefaultValueSql("((0))");
 
@@ -83,7 +83,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharacterCharms>(entity =>
             {
                 entity.HasKey(e => new { e.CharacterId, e.CharmId })
-                    .HasName("PK__Characte__1B6CA57AFA889AF7");
+                    .HasName("PK__Characte__1B6CA57A312D45A2");
 
                 entity.HasOne(d => d.Character)
                     .WithMany(p => p.CharacterCharms)
@@ -157,7 +157,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmKeywords>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.KeywordId })
-                    .HasName("PK__CharmKey__E20ADEF554E4F0E6");
+                    .HasName("PK__CharmKey__E20ADEF505D49CDC");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmKeywords)
@@ -175,7 +175,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmPrerequisites>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.CharmPrerequisiteId })
-                    .HasName("PK__CharmPre__F5505C0D6128F780");
+                    .HasName("PK__CharmPre__F5505C0D88BDEAE4");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmPrerequisitesCharm)
@@ -193,7 +193,7 @@ namespace ExaltedOnlineAPI.Models
             modelBuilder.Entity<CharmTraits>(entity =>
             {
                 entity.HasKey(e => new { e.CharmId, e.TraitId })
-                    .HasName("PK__CharmTra__09A0D80B33940E1C");
+                    .HasName("PK__CharmTra__09A0D80B4D1F7B00");
 
                 entity.HasOne(d => d.Charm)
                     .WithMany(p => p.CharmTraits)

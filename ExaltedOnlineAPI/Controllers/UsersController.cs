@@ -80,6 +80,31 @@ namespace ExaltedOnlineAPI.Controllers
             return response.ToHttpResponse();
         }
 
+        [HttpGet("Users/MailExists/{email}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> MailExists(string email)
+        {
+            var response = new SingleResponse<Boolean>();
+
+            try
+            {
+                if (await authRepo.MailExist(email).ConfigureAwait(true))
+                    response.Model = true;
+                else
+                    response.Model = false;
+            }
+            catch (Exception ex)
+            {
+                response.DidError = true;
+                response.ErrorMessage = "There was an internal error, please contact to technical support.";
+
+                Logger?.LogCritical("There was an error on '{0}' invocation: {1}", nameof(MailExists), ex);
+            }
+            return response.ToHttpResponse();
+        }
+
 
         [HttpPost("Users/Register")]
         [ProducesResponseType(200)]

@@ -95,6 +95,8 @@ export class User {
 
     constructor() {
         this.id = 0;
+        this.userName = '';
+        this.email = '';
         this.passwordSalt = '';
         this.passwordHash = '';
         this.userRole = 1;

@@ -39,6 +39,12 @@ export class ApiService {
         return this.httpClient.get(url + userName).pipe(catchError(this.handleError));
     }
 
+    public emailExists(email: string) {
+        const url = `${this.baseUrl}/Users/MailExists/`;
+
+        return this.httpClient.get(url + email).pipe(catchError(this.handleError));
+    }
+
     public createUser(user: User): Observable<User> {
         const url = `${this.baseUrl}/Users/Register`;
 

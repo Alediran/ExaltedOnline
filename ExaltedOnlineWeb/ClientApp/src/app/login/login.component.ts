@@ -6,12 +6,6 @@ import { User } from '../core/data.model';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
-//export interface DialogData {
-//    userId: BigInteger;
-//    userName: string;
-//    password: string;
-//}
-
 type ValidationErrors = {
     [key: string]: any;
 }
@@ -41,11 +35,12 @@ export class LoginComponent implements OnInit {
             { type: 'minlength', message: 'Username must be at least 5 characters long.' },
             { type: 'maxlength', message: 'Username cannot be more than 25 characters long.' },
             { type: 'pattern', message: 'Your username must start with three letters and contain only numbers or letters.' },
-            { type: 'ifUserExists', message: 'Your username has already been taken.' }
+            { type: 'ifUserExists', message: 'Your username has already been registered.' }
         ],
         'email': [
             { type: 'required', message: 'Email is required.' },
-            { type: 'email', message: 'Enter a valid email.' }
+            { type: 'email', message: 'Enter a valid email.' },
+            { type: 'ifEmailExist', message: 'Your email has already been registered.'}
         ],
         'confirm_password': [
             { type: 'required', message: 'Confirm password is required.' },
@@ -75,13 +70,15 @@ export class LoginComponent implements OnInit {
                     Validators.maxLength(25),
                     Validators.pattern('^[a-zA-Z]{3}[a-zA-Z0-9]*$')
                 ]),
-                asyncValidators: this.ifUserExists.bind(this)
+                asyncValidators: this.ifUserExists.bind(this),
+                updateOn: 'blur'
             }],
             email: ['', {
                 validators: Validators.compose([
                     Validators.required,
                     Validators.email
                 ]),
+                asyncValidators: this.ifEmailExist.bind(this),
                 updateOn: 'blur'                
             }],
             password: ['', {
@@ -90,15 +87,13 @@ export class LoginComponent implements OnInit {
                     Validators.minLength(8),
                     Validators.maxLength(25),
                     Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9\-\$\%\&]+$')
-                ]),
-                updateOn: 'blur'
+                ])
             }],
             confirmPassword: ['', {
                 validators: Validators.compose([
                     Validators.required,
                     this.matchValues('password')
-                ]),
-                updateOn: 'blur'
+                ])
             }]
         });
     }
@@ -108,12 +103,23 @@ export class LoginComponent implements OnInit {
     }
 
     saveUser() {
+
+        this.user.userName = this.formValidation.get('userName').value;
+        this.user.email = this.formValidation.get('email').value;
+        this.user.password = this.formValidation.get('password').value;
+
         this.apiService.createUser(this.user).subscribe(resp => { return this.spresp.push(resp); });
     }
 
     ifUserExists(fc: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
         return this.apiService.userExists(fc.value).pipe(map((res: any) => {
             return res.model ? { ifUserExists: true } : null;
+        }));
+    }
+
+    ifEmailExist(fc: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+        return this.apiService.emailExists(fc.value).pipe(map((res: any) => {
+            return res.model ? { ifEmailExist: true } : null;
         }));
     }
 
