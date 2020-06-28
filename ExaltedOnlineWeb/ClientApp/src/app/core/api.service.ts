@@ -1,71 +1,83 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { retry, catchError, map } from 'rxjs/operators';
-import { User, BoolModel } from './data.model';
-
+import { Injectable } from "@angular/core";
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpErrorResponse,
+} from "@angular/common/http";
+import { Observable, throwError } from "rxjs";
+import { retry, catchError, map } from "rxjs/operators";
+import { User, BoolModel } from "./model/data.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
+export class ApiService {
+  baseUrl: String = "http://localhost:81/api";
 
-export class ApiService {    
+  constructor(private httpClient: HttpClient) {}
 
-    baseUrl: String = 'http://localhost:8082/api';  //'https://exaltedapi.azurewebsites.net/api';
+  //Charm Methods
+  public getCharm<CharmModel>(id: Number): Observable<CharmModel> {
+    const method = `/Charms/${id}`;
 
-    constructor(private httpClient: HttpClient) { }
+    return this.get<CharmModel>(method);
+  }
 
-    httpOptions = {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-    }
+  public getCharms<CharmModel>(): Observable<CharmModel> {
+    const method = `/Charms`;
 
-    //Charm Methods
-    public getCharm<CharmModel>(id: Number) {
-        const url = `${this.baseUrl}/Charms/`;       
+    return this.get<CharmModel>(method);
+  }
 
-        return this.httpClient.get<CharmModel>(url + id).pipe(catchError(this.handleError));
-    }
+  //UserMethods
+  public userExists(userName: string): Observable<BoolModel> {
+    const method = `/Users/Exists/${userName}`;
 
-    public getCharms<CharmModel>() {
-        const url = `${this.baseUrl}/Charms`;
+    return this.get<BoolModel>(method);
+  }
 
-        return this.httpClient.get<CharmModel>(url);
-    }
+  public emailExists(email: string): Observable<BoolModel> {
+    const method = `Users/MailExists/${email}`;
 
-    //UserMethods
-    public userExists(userName: string) {
-        const url = `${this.baseUrl}/Users/Exists/`;
+    return this.get<BoolModel>(method);
+  }
 
-        return this.httpClient.get(url + userName).pipe(catchError(this.handleError));
-    }
+  public createUser(user: User): Observable<User> {
+    const method = `/Users/Register`;
 
-    public emailExists(email: string) {
-        const url = `${this.baseUrl}/Users/MailExists/`;
+    return this.post<User>(method, user);
+  }
 
-        return this.httpClient.get(url + email).pipe(catchError(this.handleError));
-    }
+  private get<T>(method: string) {
+    const url = `${this.baseUrl}/${method}`;
+    return this.httpClient.get<T>(url).pipe(catchError(this.handleError));
+  }
 
-    public createUser(user: User): Observable<User> {
-        const url = `${this.baseUrl}/Users/Register`;
+  private post<T>(method: string, content: T): Observable<T> {
+    const url = `${this.baseUrl}`;
 
-        return this.httpClient.post<User>(url, user, this.httpOptions).pipe(catchError(this.handleError));
-
-    }
-
-    // Handle API errors
-    handleError(error: HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-            // A client-side or network error occurred. Handle it accordingly.
-            console.error('An error occurred:', error.error.message);
-        } else {
-            // The backend returned an unsuccessful response code.
-            // The response body may contain clues as to what went wrong,
-            console.error(
-                `Backend returned code ${error.status}, ` +
-                `body was: ${error.error}`);
-        }
-        // return an observable with a user-facing error message
-        return throwError(
-            'Something bad happened; please try again later.');
+    const httpOptions = {
+      headers: new HttpHeaders({ "Content-Type": "application/json" }),
     };
-} 
+
+    return this.httpClient
+      .post<T>(url, content, httpOptions)
+      .pipe(catchError(this.handleError));
+  }
+
+  // Handle API errors
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error("An error occurred:", error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` + `body was: ${error.error}`
+      );
+    }
+    // return an observable with a user-facing error message
+    return throwError("Something bad happened; please try again later.");
+  }
+}

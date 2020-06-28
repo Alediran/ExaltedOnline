@@ -1,5 +1,5 @@
 <ng-template #single>
-  <div>Name: {{ charms.name }}</div>
-  <div [innerHTML]="charms.description"></div>
-  <div>Essence: {{ charms.essence }}</div>
+  <div>Name: {{ charmModel.model[0].Name }}</div>
+  <div [innerHTML]="charmModel.model[0].Description"></div>
+  <div>Essence: {{ charmModel.model[0].Essence }}</div>
 </ng-template>

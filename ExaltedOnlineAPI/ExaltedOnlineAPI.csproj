@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\nicol\source\repos\ExaltedOnline\ExaltedOnlineAPI\ExaltedOnlineAPI.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\ncosta\repos\ExaltedOnline\ExaltedOnlineAPI\.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
